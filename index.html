@@ -31,10 +31,83 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Анімація листочків */
+        .leaf {
+            position: absolute;
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: -1;
+            opacity: 0.6;
+            animation: falling linear infinite;
+        }
+
+        @keyframes falling {
+            0% {
+                transform: translate(0, -10vh) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(calc(var(--random-x) * 10vw), 100vh) rotate(360deg);
+            }
+        }
+
+        /* Жираф над футером */
+        .giraffe-footer {
+            position: absolute;
+            right: 20px;
+            bottom: 120px;
+            z-index: 10;
+        }
+
+        .giraffe-footer img {
+            height: 150px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
         }
 
         /* Хедер */
-        header {
+        .top-header {
+            background: var(--dark);
+            color: white;
+            padding: 8px 5%;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .top-header-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .top-header-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .top-header-links a:hover {
+            color: var(--primary);
+        }
+
+        .main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -403,20 +476,6 @@
             animation: float 4s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
-        }
-
         /* Секції */
         .section {
             background: var(--light);
@@ -501,11 +560,25 @@
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             transition: all 0.3s;
             cursor: pointer;
+            position: relative;
         }
 
         .product-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 1;
         }
 
         .product-image {
@@ -531,18 +604,62 @@
             font-weight: 700;
             color: var(--primary);
             font-size: 16px;
+            margin-bottom: 4px;
         }
 
-        /* Футер (зменшена ширина) */
+        .product-old-price {
+            font-size: 13px;
+            color: #999;
+            text-decoration: line-through;
+            margin-right: 8px;
+        }
+
+        .product-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+        }
+
+        .product-btn {
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .product-btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .product-btn-primary:hover {
+            background: var(--primary-light);
+        }
+
+        .product-btn-secondary {
+            background: none;
+            border: 1px solid #ddd;
+            color: var(--dark);
+        }
+
+        .product-btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Футер (зменшена висота) */
         footer {
             background: var(--dark);
             color: white;
-            padding: 40px 0 20px;
+            padding: 30px 0 15px;
+            position: relative;
         }
 
         .footer-container {
-            max-width: 800px;
-            /* Зменшена ширина */
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
             display: grid;
@@ -624,15 +741,35 @@
 
         .footer-bottom {
             text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
+            padding-top: 20px;
+            margin-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             font-size: 13px;
             opacity: 0.7;
-            max-width: 800px;
-            /* Зменшена ширина */
+            max-width: 1200px;
             margin-left: auto;
             margin-right: auto;
+        }
+
+        /* Спеціальні блоки */
+        .full-width-section {
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 24px 5%;
+            background: var(--light);
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+        }
+
+        .full-width-section .section-title {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            padding: 0 24px;
+        }
+
+        .full-width-section .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         /* Модальні вікна */
@@ -920,6 +1057,9 @@
         }
 
         @media (max-width: 768px) {
+            .top-header {
+                display: none;
+            }
 
             .header-left,
             .header-right {
@@ -980,8 +1120,21 @@
 </head>
 
 <body>
-    <!-- Хедер -->
-    <header>
+    <!-- Верхній хедер -->
+    <div class="top-header">
+        <div class="top-header-links">
+            <a href="#">Доставка і оплата</a>
+            <a href="#">Гарантія</a>
+            <a href="#">Контакти</a>
+        </div>
+        <div class="top-header-links">
+            <a href="#">Стати продавцем</a>
+            <a href="#">Допомога</a>
+        </div>
+    </div>
+
+    <!-- Основний хедер -->
+    <header class="main-header">
         <div class="header-left">
             <div class="burger-menu" id="burgerMenu">
                 <i class="fas fa-bars"></i>
@@ -1044,6 +1197,8 @@
                             <li class="subcategory-item"><i class="fas fa-tablet-alt"></i>Планшети</li>
                             <li class="subcategory-item"><i class="fas fa-camera"></i>Фотоапарати</li>
                             <li class="subcategory-item"><i class="fas fa-music"></i>Аудіотехніка</li>
+                            <li class="subcategory-item"><i class="fas fa-gamepad"></i>Ігрові консолі</li>
+                            <li class="subcategory-item"><i class="fas fa-keyboard"></i>Комп'ютерні аксесуари</li>
                         </ul>
                     </div>
                 </li>
@@ -1062,6 +1217,8 @@
                             <li class="subcategory-item"><i class="fas fa-scarf"></i>Аксесуари</li>
                             <li class="subcategory-item"><i class="fas fa-hat-cowboy"></i>Головні убори</li>
                             <li class="subcategory-item"><i class="fas fa-shopping-bag"></i>Сумки та рюкзаки</li>
+                            <li class="subcategory-item"><i class="fas fa-glasses"></i>Окуляри</li>
+                            <li class="subcategory-item"><i class="fas fa-ring"></i>Ювелірні вироби</li>
                         </ul>
                     </div>
                 </li>
@@ -1079,6 +1236,9 @@
                             <li class="subcategory-item"><i class="fas fa-lightbulb"></i>Освітлення</li>
                             <li class="subcategory-item"><i class="fas fa-leaf"></i>Садовий інвентар</li>
                             <li class="subcategory-item"><i class="fas fa-seedling"></i>Рослини</li>
+                            <li class="subcategory-item"><i class="fas fa-bath"></i>Сантехніка</li>
+                            <li class="subcategory-item"><i class="fas fa-tools"></i>Інструменти</li>
+                            <li class="subcategory-item"><i class="fas fa-paint-roller"></i>Ремонт</li>
                         </ul>
                     </div>
                 </li>
@@ -1095,6 +1255,9 @@
                             <li class="subcategory-item"><i class="fas fa-pump-soap"></i>Автохімія</li>
                             <li class="subcategory-item"><i class="fas fa-tools"></i>Запчастини</li>
                             <li class="subcategory-item"><i class="fas fa-volume-up"></i>Автозвук</li>
+                            <li class="subcategory-item"><i class="fas fa-battery-full"></i>Акумулятори</li>
+                            <li class="subcategory-item"><i class="fas fa-oil-can"></i>Мастила</li>
+                            <li class="subcategory-item"><i class="fas fa-motorcycle"></i>Мототовари</li>
                         </ul>
                     </div>
                 </li>
@@ -1111,6 +1274,9 @@
                             <li class="subcategory-item"><i class="fas fa-bottle-droplet"></i>Дитяче харчування</li>
                             <li class="subcategory-item"><i class="fas fa-school"></i>Школа</li>
                             <li class="subcategory-item"><i class="fas fa-bath"></i>Гігієна</li>
+                            <li class="subcategory-item"><i class="fas fa-bed"></i>Дитячі меблі</li>
+                            <li class="subcategory-item"><i class="fas fa-bicycle"></i>Дитячі велосипеди</li>
+                            <li class="subcategory-item"><i class="fas fa-birthday-cake"></i>Товари для свят</li>
                         </ul>
                     </div>
                 </li>
@@ -1127,6 +1293,9 @@
                             <li class="subcategory-item"><i class="fas fa-campground"></i>Кемпінг</li>
                             <li class="subcategory-item"><i class="fas fa-fish"></i>Риболовля</li>
                             <li class="subcategory-item"><i class="fas fa-hiking"></i>Туризм</li>
+                            <li class="subcategory-item"><i class="fas fa-swimmer"></i>Водні види спорту</li>
+                            <li class="subcategory-item"><i class="fas fa-skiing"></i>Зимові види спорту</li>
+                            <li class="subcategory-item"><i class="fas fa-table-tennis"></i>Спортивне обладнання</li>
                         </ul>
                     </div>
                 </li>
@@ -1142,6 +1311,9 @@
                             <li class="subcategory-item"><i class="fas fa-graduation-cap"></i>Навчальна література</li>
                             <li class="subcategory-item"><i class="fas fa-pencil-alt"></i>Канцелярія</li>
                             <li class="subcategory-item"><i class="fas fa-print"></i>Офісні товари</li>
+                            <li class="subcategory-item"><i class="fas fa-paint-brush"></i>Товари для творчості</li>
+                            <li class="subcategory-item"><i class="fas fa-music"></i>Ноти</li>
+                            <li class="subcategory-item"><i class="fas fa-map"></i>Карти та атласи</li>
                         </ul>
                     </div>
                 </li>
@@ -1158,6 +1330,44 @@
                             <li class="subcategory-item"><i class="fas fa-spray-can"></i>Парфуми</li>
                             <li class="subcategory-item"><i class="fas fa-first-aid"></i>Медичні товари</li>
                             <li class="subcategory-item"><i class="fas fa-pills"></i>Вітаміни</li>
+                            <li class="subcategory-item"><i class="fas fa-heartbeat"></i>Догляд за тілом</li>
+                            <li class="subcategory-item"><i class="fas fa-teeth"></i>Догляд за зубами</li>
+                            <li class="subcategory-item"><i class="fas fa-hand-sparkles"></i>Догляд за руками</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="food">
+                    <div class="category-header">
+                        <span><i class="fas fa-utensils category-icon"></i>Продукти харчування</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="foodSub">
+                            <li class="subcategory-item"><i class="fas fa-wine-bottle"></i>Напої</li>
+                            <li class="subcategory-item"><i class="fas fa-cheese"></i>Молочні продукти</li>
+                            <li class="subcategory-item"><i class="fas fa-bread-slice"></i>Хлібобулочні вироби</li>
+                            <li class="subcategory-item"><i class="fas fa-drumstick-bite"></i>М'ясні продукти</li>
+                            <li class="subcategory-item"><i class="fas fa-fish"></i>Рибні продукти</li>
+                            <li class="subcategory-item"><i class="fas fa-apple-alt"></i>Фрукти та овочі</li>
+                            <li class="subcategory-item"><i class="fas fa-ice-cream"></i>Солодощі</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="pets">
+                    <div class="category-header">
+                        <span><i class="fas fa-paw category-icon"></i>Товари для тварин</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="petsSub">
+                            <li class="subcategory-item"><i class="fas fa-dog"></i>Для собак</li>
+                            <li class="subcategory-item"><i class="fas fa-cat"></i>Для котів</li>
+                            <li class="subcategory-item"><i class="fas fa-fish"></i>Для риб</li>
+                            <li class="subcategory-item"><i class="fas fa-dove"></i>Для птахів</li>
+                            <li class="subcategory-item"><i class="fas fa-horse"></i>Для сільських тварин</li>
+                            <li class="subcategory-item"><i class="fas fa-kiwi-bird"></i>Для екзотичних тварин</li>
                         </ul>
                     </div>
                 </li>
@@ -1175,81 +1385,42 @@
                 <button class="add-ad-btn" id="addAdBtn">Додати оголошення</button>
             </div>
             <div class="banner-image">
-                <img src="https://via.placeholder.com/300x200?text=Жираф" alt="Жираф">
+                <img src="https://i.imgur.com/7vQhBQj.png" alt="Жираф">
             </div>
         </section>
 
-        <!-- Секція "Тебе зацікавлять" -->
-        <section class="section">
+        <!-- Секція "Тебе зацікавлять" (на всю ширину) -->
+        <section class="full-width-section">
             <h2 class="section-title">
                 Тебе зацікавлять
                 <a href="#">Дивитись усі <i class="fas fa-chevron-right"></i></a>
             </h2>
-            <div class="categories-grid">
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <span>Смартфони</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-laptop"></i>
-                    </div>
-                    <span>Ноутбуки</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-tshirt"></i>
-                    </div>
-                    <span>Одяг</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <span>Дім</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-car"></i>
-                    </div>
-                    <span>Авто</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-gamepad"></i>
-                    </div>
-                    <span>Ігри</span>
-                </div>
-                <div class="category-card">
-                    <div class="category-icon">
-                        <i class="fas fa-paw"></i>
-                    </div>
-                    <span>Тварини</span>
-                </div>
-            </div>
-        </section>
-
-        <!-- Секція "Для тебе" -->
-        <section class="section">
-            <h2 class="section-title">
-                Для тебе
-                <a href="#">Дивитись усі <i class="fas fa-chevron-right"></i></a>
-            </h2>
             <div class="products-grid">
                 <div class="product-card">
+                    <div class="product-badge">-20%</div>
                     <img class="product-image" src="https://via.placeholder.com/200x200?text=iPhone+13" alt="Товар">
                     <div class="product-info">
                         <div class="product-title">iPhone 13 Pro Max 256GB Sierra Blue</div>
-                        <div class="product-price">34 999 ₴</div>
+                        <div class="product-price">
+                            <span class="product-old-price">42 999 ₴</span>
+                            34 999 ₴
+                        </div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
                     </div>
                 </div>
                 <div class="product-card">
+                    <div class="product-badge">Хіт</div>
                     <img class="product-image" src="https://via.placeholder.com/200x200?text=Ноутбук" alt="Товар">
                     <div class="product-info">
                         <div class="product-title">Ноутбук ASUS ROG Zephyrus G14</div>
                         <div class="product-price">45 499 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
                     </div>
                 </div>
                 <div class="product-card">
@@ -1257,17 +1428,143 @@
                     <div class="product-info">
                         <div class="product-title">Кросівки Nike Air Max 270</div>
                         <div class="product-price">3 599 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
                     </div>
                 </div>
                 <div class="product-card">
+                    <div class="product-badge">Новинка</div>
                     <img class="product-image" src="https://via.placeholder.com/200x200?text=Навушники" alt="Товар">
                     <div class="product-info">
                         <div class="product-title">Навушники Sony WH-1000XM4</div>
                         <div class="product-price">8 299 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Топ продаж</div>
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Телевізор" alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Телевізор Samsung QE55Q60BAUXUA</div>
+                        <div class="product-price">32 999 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">-15%</div>
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Холодильник" alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Холодильник Samsung RB33A3440SA/UA</div>
+                        <div class="product-price">
+                            <span class="product-old-price">28 999 ₴</span>
+                            24 649 ₴
+                        </div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Секція "Для тебе" (на всю ширину) -->
+        <section class="full-width-section">
+            <h2 class="section-title">
+                Для тебе
+                <a href="#">Дивитись усі <i class="fas fa-chevron-right"></i></a>
+            </h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Пральна+машина"
+                        alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Пральна машина Samsung WW60T302DWW/UA</div>
+                        <div class="product-price">14 999 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Топ продаж</div>
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Пилосос" alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Робот-пилосос Xiaomi Robot Vacuum-Mop 2</div>
+                        <div class="product-price">12 999 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Велосипед" alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Гірський велосипед Comanche Trail 27.5"</div>
+                        <div class="product-price">15 499 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">Новинка</div>
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Смарт+годинник"
+                        alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Смарт-годинник Samsung Galaxy Watch 5</div>
+                        <div class="product-price">8 999 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Фотоапарат" alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Фотоапарат Canon EOS 2000D Kit</div>
+                        <div class="product-price">18 499 ₴</div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-badge">-30%</div>
+                    <img class="product-image" src="https://via.placeholder.com/200x200?text=Мікрохвильовка"
+                        alt="Товар">
+                    <div class="product-info">
+                        <div class="product-title">Мікрохвильова піч Samsung ME83KRW-1/BWT</div>
+                        <div class="product-price">
+                            <span class="product-old-price">5 999 ₴</span>
+                            4 199 ₴
+                        </div>
+                        <div class="product-actions">
+                            <button class="product-btn product-btn-primary">Купити</button>
+                            <button class="product-btn product-btn-secondary">В обране</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Жираф над футером -->
+    <div class="giraffe-footer">
+        <img src="https://i.imgur.com/7vQhBQj.png" alt="Жираф">
     </div>
 
     <!-- Футер -->
@@ -1529,6 +1826,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Створення анімації листочків
+            function createLeaves() {
+                const leafTypes = [
+                    'https://i.imgur.com/QYHvQJb.png', // Листок 1
+                    'https://i.imgur.com/9JZvQJb.png', // Листок 2
+                    'https://i.imgur.com/8JXvQJb.png'  // Листок 3
+                ];
+
+                for (let i = 0; i < 15; i++) {
+                    const leaf = document.createElement('div');
+                    leaf.className = 'leaf';
+
+                    // Випадковий тип листка
+                    const randomType = leafTypes[Math.floor(Math.random() * leafTypes.length)];
+                    leaf.style.backgroundImage = `url(${randomType})`;
+
+                    // Випадковий розмір
+                    const size = Math.random() * 30 + 20;
+                    leaf.style.width = `${size}px`;
+                    leaf.style.height = `${size}px`;
+
+                    // Випадкова позиція
+                    leaf.style.left = `${Math.random() * 100}vw`;
+
+                    // Випадкова тривалість анімації
+                    const duration = Math.random() * 10 + 10;
+                    leaf.style.animationDuration = `${duration}s`;
+
+                    // Випадковий delay
+                    leaf.style.animationDelay = `${Math.random() * 5}s`;
+
+                    // Випадковий напрямок падіння
+                    leaf.style.setProperty('--random-x', Math.random() > 0.5 ? 1 : -1);
+
+                    document.body.appendChild(leaf);
+                }
+            }
+
+            createLeaves();
+
             // Бургер-меню
             const burgerMenu = document.getElementById('burgerMenu');
             const sidebar = document.getElementById('sidebar');
@@ -1642,25 +1979,6 @@
                 });
             });
 
-            // Видалення сповіщень
-            document.querySelectorAll('.notification-remove').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const item = e.target.closest('.notification-item');
-                    item.style.opacity = '0';
-                    setTimeout(() => {
-                        item.remove();
-                        // Оновлюємо лічильник
-                        const badge = document.querySelector('#notificationsBtn .icon-badge');
-                        if (badge) {
-                            const count = parseInt(badge.textContent) - 1;
-                            badge.textContent = count > 0 ? count : '';
-                            if (count <= 0) badge.remove();
-                        }
-                    }, 300);
-                });
-            });
-
             // Вибір міста
             document.querySelectorAll('.city-item').forEach(item => {
                 item.addEventListener('click', () => {
@@ -1736,6 +2054,33 @@
                     // Обертаємо стрілочку
                     this.style.transform = 'rotate(90deg)';
                     this.style.color = 'var(--primary)';
+                });
+            });
+
+            // Додавання товарів до обраного
+            document.querySelectorAll('.product-btn-secondary').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const productCard = this.closest('.product-card');
+                    const title = productCard.querySelector('.product-title').textContent;
+                    const price = productCard.querySelector('.product-price').textContent;
+
+                    // Оновлюємо лічильник обраного
+                    const wishlistBadge = document.querySelector('#wishlistBtn .icon-badge');
+                    if (wishlistBadge) {
+                        const count = parseInt(wishlistBadge.textContent) + 1;
+                        wishlistBadge.textContent = count;
+                    } else {
+                        const newBadge = document.createElement('span');
+                        newBadge.className = 'icon-badge';
+                        newBadge.textContent = '1';
+                        document.querySelector('#wishlistBtn').appendChild(newBadge);
+                    }
+
+                    // Показуємо сповіщення про додавання
+                    alert(`Товар "${title}" додано до обраного`);
                 });
             });
         });
