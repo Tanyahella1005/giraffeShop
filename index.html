@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Маркетплейс Giraffy</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #fffbea;
+            color: #4b3e2a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #fbe6a2;
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 8px;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+        }
+
+        .search-bar input[type="search"] {
+            width: 100%;
+            border-radius: 20px 0 0 20px;
+            border: 1.5px solid #ddb72c;
+            padding: 8px 12px;
+            font-size: 16px;
+            outline: none;
+            background: #fffbea;
+        }
+
+        .search-bar button {
+            border: 1.5px solid #ddb72c;
+            border-left: none;
+            background: #ddb72c;
+            color: #4b3e2a;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 0 20px 20px 0;
+            padding: 0 14px;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background: #fdd86e;
+        }
+
+        .header-actions {
+            position: relative;
+        }
+
+        .header-actions button.icon-btn {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Акаунт меню */
+        #accountMenu {
+            display: none;
+            position: absolute;
+            top: 38px;
+            right: 0;
+            background: #fbe6a2;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            min-width: 220px;
+            padding: 12px 0;
+            z-index: 15;
+            user-select: none;
+        }
+
+        #accountMenu.active {
+            display: block;
+        }
+
+        #accountMenu .menu-header {
+            padding: 12px 20px;
+            font-weight: 700;
+            border-bottom: 1px solid #ddb72c;
+            color: #4b3e2a;
+        }
+
+        #accountMenu ul {
+            list-style: none;
+            margin: 0;
+            padding: 8px 0;
+        }
+
+        #accountMenu li {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.25s ease;
+        }
+
+        #accountMenu li:hover {
+            background: #ddb72c;
+        }
+
+        #accountMenu .separator {
+            height: 1px;
+            background: #ddb72c;
+            margin: 8px 0;
+        }
+
+        /* Меню категорій */
+        .side-menu {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            width: 280px;
+            height: calc(100vh - 56px);
+            background: #fbe6a2;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.15);
+            overflow-y: auto;
+            padding: 12px 16px;
+            transform: translateX(-300px);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 20;
+        }
+
+        .side-menu.open {
+            transform: translateX(0);
+        }
+
+        .side-menu h3 {
+            margin-top: 0;
+            margin-bottom: 12px;
+        }
+
+        .category-item {
+            font-weight: 700;
+            cursor: pointer;
+            padding: 8px 12px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-item:hover,
+        .category-item.open {
+            background: #ddb72c;
+            color: #4b3e2a;
+        }
+
+        .category-sublist {
+            max-height: 0;
+            overflow: hidden;
+            flex-direction: column;
+            margin-left: 14px;
+            margin-bottom: 10px;
+            transition: max-height 0.3s ease;
+        }
+
+        .category-sublist.show {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .category-sublist div {
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 10px;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-sublist div:hover {
+            background: #fdd86e;
+        }
+
+        /* Основний контент */
+        main {
+            padding: 20px 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-grow: 1;
+        }
+
+        /* Банер */
+        .banner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #fbe6a2, #ddb72c);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .banner-text {
+            max-width: 55%;
+        }
+
+        .banner-text h1 {
+            margin: 0 0 12px 0;
+        }
+
+        .banner-text p {
+            font-size: 18px;
+            margin: 0 0 18px 0;
+        }
+
+        .banner-text button {
+            background: #4b3e2a;
+            color: #fbe6a2;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 16px;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .banner-text button:hover {
+            background: #3b3625;
+        }
+
+        .banner-image img {
+            max-height: 140px;
+            border-radius: 16px;
+        }
+
+        /* Тебе зацікавлять */
+        .you-may-like {
+            margin-bottom: 40px;
+        }
+
+        .you-may-like h2 {
+            margin-bottom: 12px;
+        }
+
+        .you-may-like .category-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .you-may-like .category-buttons button {
+            background: #ddb72c;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #4b3e2a;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .you-may-like .category-buttons button:hover {
+            background: #fdd86e;
+        }
+
+        /* Категорії популярні */
+        .categories-popular {
+            margin-bottom: 32px;
+        }
+
+        .category-cards {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .category-card {
+            flex: 1 1 120px;
+            background: #fbe6a2;
+            border-radius: 16px;
+            text-align: center;
+            padding: 12px 8px;
+            cursor: pointer;
+            user-select: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .category-card img {
+            max-height: 70px;
+            margin-bottom: 8px;
+        }
+
+        .category-card:hover {
+            background: #ddb72c;
+        }
+
+        /* Каталог */
+        .filters {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
+        }
+
+        label {
+            font-weight: 700;
+        }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 1.5px solid #ddb72c;
+            background: #fffbea;
+            color: #4b3e2a;
+            font-size: 16px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+
+        .product-card {
+            background: #fbe6a2;
+            padding: 14px 10px;
+            border-radius: 16px;
+            cursor: pointer;
+            user-select: none;
+            text-align: center;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 0 12px #ddb72c;
+        }
+
+        .product-card img {
+            max-height: 120px;
+            margin-bottom: 10px;
+        }
+
+        /* Оформлення замовлення (сховано) */
+        .checkout-section {
+            max-width: 600px;
+            background: #fbe6a2;
+            border-radius: 20px;
+            padding: 24px;
+            margin: 0 auto 48px auto;
+            display: none;
+        }
+
+        /* Футер */
+        footer {
+            background: #4b3e2a;
+            color: #fbe6a2;
+            padding: 20px 16px;
+            text-align: center;
+            font-size: 14px;
+            user-select: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex: 0 0 auto;
+        }
+
+        .footer-logo img {
+            height: 48px;
+        }
+
+        .footer-info {
+            flex: 1 1 200px;
+            text-align: left;
+        }
+
+        .footer-info h4 {
+            margin: 0 0 6px 0;
+        }
+
+        .footer-info ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer-info ul li {
+            margin-bottom: 4px;
+        }
+
+        .footer-info ul li a {
+            color: #fbe6a2;
+            text-decoration: none;
+        }
+
+        .footer-info ul li a:hover {
+            text-decoration: underline;
+        }
+
+        .footer-store-buttons {
+            display: flex;
+            gap: 12px;
+            flex: 0 0 auto;
+        }
+
+        .store-btn img {
+            height: 40px;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.2s ease;
+        }
+
+        .store-btn img:hover {
+            transform: scale(1.05);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            flex: 0 0 auto;
+        }
+
+        .social-icon {
+            width: 32px;
+            height: 32px;
+            fill: #fbe6a2;
+            cursor: pointer;
+            transition: fill 0.2s ease;
+        }
+
+        .social-icon:hover {
+            fill: #ddb72c;
+        }
+
+        /* Модалка меню акаунту */
+        .modal-account {
+            position: absolute;
+            top: 38px;
+            right: 0;
+            background: #fbe6a2;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            min-width: 240px;
+            padding: 12px 0;
+            z-index: 15;
+            user-select: none;
+            display: none;
+        }
+
+        .modal-account.active {
+            display: block;
+        }
+
+        .modal-account .header {
+            font-weight: 700;
+            padding: 12px 20px;
+            border-bottom: 1px solid #ddb72c;
+        }
+
+        .modal-account ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .modal-account li {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.25s ease;
+        }
+
+        .modal-account li:hover {
+            background: #ddb72c;
+        }
+
+        .modal-account .separator {
+            height: 1px;
+            background: #ddb72c;
+            margin: 8px 0;
+        }
+
+        /* Приховати кошик */
+        #cartBtn {
+            display: none;
+        }
+
+        /* Адаптивність */
+        @media (max-width: 900px) {
+            .banner {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .banner-text {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .you-may-like .category-buttons {
+                justify-content: center;
+            }
+
+            .side-menu {
+                top: 50px;
+                width: 260px;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .footer-info {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <button id="menuToggleBtn" aria-label="Відкрити меню категорій" title="Відкрити меню категорій"
+            style="font-size: 24px; background:none; border:none; cursor:pointer; user-select:none;">☰</button>
+        <div class="logo" aria-label="Логотип Giraffy">
+            <img src="Images/images (1).jpg" alt="Логотип Giraffy" />
+            <span>Giraffy</span>
+        </div>
+        <div class="search-bar" role="search">
+            <input type="search" id="searchInput" aria-label="Пошук товарів" placeholder="Пошук товарів…" />
+            <button id="searchBtn" aria-label="Пошук">&#128269;</button>
+        </div>
+        <div class="header-actions">
+            <button class="icon-btn" id="accountBtn" aria-haspopup="true" aria-expanded="false"
+                aria-controls="accountMenu" title="Акаунт">👤</button>
+            <button class="icon-btn" id="cartBtn" aria-label="Кошик" title="Кошик">🛒<span id="cartCount"
+                    style="font-size:12px; vertical-align: top;">0</span></button>
+        </div>
+
+        <nav id="accountMenu" role="menu" aria-label="Меню акаунту" tabindex="-1" aria-hidden="true">
+            <div class="menu-header">Акаунт</div>
+            <ul>
+                <li role="menuitem" tabindex="0">Вхід</li>
+                <li role="menuitem" tabindex="0">Реєстрація</li>
+                <li role="menuitem" tabindex="0">Особистий кабінет</li>
+                <li role="menuitem" tabindex="0">Вихід</li>
+                <li class="separator"></li>
+                <li role="menuitem" tabindex="0">Мої оголошення</li>
+                <li role="menuitem" tabindex="0">Улюблені товари</li>
+                <li role="menuitem" tabindex="0">Повідомлення</li>
+                <li role="menuitem" tabindex="0">Підписка</li>
+                <li role="menuitem" tabindex="0">Налаштування</li>
+            </ul>
+        </nav>
+    </header>
+
+    <nav class="side-menu" id="sideMenu" aria-label="Категорії товарів">
+        <h3>Категорії</h3>
+        <div class="category-item" tabindex="0">Іграшки <span>▶</span></div>
+        <div class="category-sublist">
+            <div tabindex="0">М’які іграшки</div>
+            <div tabindex="0">Розвиваючі іграшки</div>
+            <div tabindex="0">Конструктори</div>
+        </div>
+        <div class="category-item" tabindex="0">Одяг <span>▶</span></div>
+        <div class="category-sublist">
+            <div tabindex="0">Футболки</div>
+            <div tabindex="0">Кофти</div>
+            <div tabindex="0">Штани</div>
+        </div>
+        <div class="category-item" tabindex="0">Для дому <span>▶</span></div>
+        <div class="category-sublist">
+            <div tabindex="0">Лампи</div>
+            <div tabindex="0">Посуд</div>
+            <div tabindex="0">Декор</div>
+        </div>
+        <div class="category-item" tabindex="0">Подарунки <span>▶</span></div>
+        <div class="category-sublist">
+            <div tabindex="0">Набори</div>
+            <div tabindex="0">Сувеніри</div>
+        </div>
+        <div class="category-item" tabindex="0">Електроніка <span>▶</span></div>
+        <div class="category-sublist">
+            <div tabindex="0">Гаджети</div>
+            <div tabindex="0">Аксесуари</div>
+        </div>
+        <div class="category-item" tabindex="0">Книги <span>▶</span></div>
+        <div class="category-sublist">
+            <div tabindex="0">Для дітей</div>
+            <div tabindex="0">Для дорослих</div>
+        </div>
+    </nav>
+
+    <main id="mainContent">
+        <section class="banner" aria-label="Промо">
+            <div class="banner-text">
+                <h1>Вітаємо у Giraffy!</h1>
+                <p>Ваш маркетплейс з товарами на тему жираф.</p>
+                <p><strong>Почни заробляти вже зараз!<br>Оголошення швидко та надійно</strong></p>
+                <button id="addListingBtn">Додати оголошення</button>
+            </div>
+            <div class="banner-image">
+                <img src="Images/giraffe-holding-shopping-bags-baby-21737577.webp" alt="Жирафа з покупками" />
+            </div>
+        </section>
+
+        <section class="you-may-like" aria-label="Тебе зацікавлять">
+            <h2>Тебе зацікавлять</h2>
+            <div class="category-buttons">
+                <button data-category="Товари для дому">Товари для дому</button>
+                <button data-category="Тварини">Тварини</button>
+                <button data-category="Побутова техніка">Побутова техніка</button>
+                <button data-category="Електроніка">Електроніка</button>
+                <button data-category="Дім та сад">Дім та сад</button>
+                <button data-category="Мода та стиль">Мода та стиль</button>
+                <button data-category="Парфумерія">Парфумерія</button>
+                <button data-category="">Усі</button>
+            </div>
+        </section>
+
+        <section class="categories-popular" aria-label="Популярні категорії">
+            <h2>Популярні категорії</h2>
+            <div class="category-cards">
+                <div class="category-card" tabindex="0" data-category="Іграшки"><img src="Images/toys.png"
+                        alt="Іграшки" /><span>Іграшки</span></div>
+                <div class="category-card" tabindex="0" data-category="Одяг"><img src="Images/clothes.png"
+                        alt="Одяг" /><span>Одяг</span></div>
+                <div class="category-card" tabindex="0" data-category="Для дому"><img src="Images/home.png"
+                        alt="Для дому" /><span>Для дому</span></div>
+                <div class="category-card" tabindex="0" data-category="Подарунки"><img src="Images/gift.png"
+                        alt="Подарунки" /><span>Подарунки</span></div>
+            </div>
+        </section>
+
+        <section aria-label="Фільтри і сортування">
+            <h2>Каталог товарів</h2>
+            <div class="filters" role="form" aria-label="Фільтри і сортування товарів">
+                <label for="filterCategory">Категорія:</label>
+                <select id="filterCategory" aria-controls="productList">
+                    <option value="">Усі</option>
+                    <option value="Іграшки">Іграшки</option>
+                    <option value="Одяг">Одяг</option>
+                    <option value="Для дому">Для дому</option>
+                    <option value="Подарунки">Подарунки</option>
+                    <option value="Електроніка">Електроніка</option>
+                    <option value="Книги">Книги</option>
+                </select>
+
+                <label for="sortBy">Сортувати за:</label>
+                <select id="sortBy" aria-controls="productList">
+                    <option value="popularity">Популярністю</option>
+                    <option value="price-asc">Ціною ↑</option>
+                    <option value="price-desc">Ціною ↓</option>
+                </select>
+            </div>
+
+            <div class="product-list" id="productList" role="list" tabindex="0" aria-live="polite">
+                <!-- Товари будуть тут -->
+            </div>
+        </section>
+
+        <!-- Оформлення замовлення (сховано) -->
+        <section class="checkout-section" id="checkoutSection" aria-hidden="true">
+            <h2>Оформлення замовлення</h2>
+            <form id="checkoutForm" aria-label="Форма оформлення замовлення">
+                <label for="name">Ім'я:</label><br />
+                <input id="name" name="name" type="text" required><br /><br />
+
+                <label for="email">Email:</label><br />
+                <input id="email" name="email" type="email" required><br /><br />
+
+                <label for="address">Адреса доставки:</label><br />
+                <textarea id="address" name="address" rows="3" required></textarea><br /><br />
+
+                <button type="submit">Підтвердити замовлення</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-logo" aria-label="Логотип Giraffy">
+            <img src="Images/images (1).jpg" alt="Логотип Giraffy" />
+            <span>Giraffy</span>
+        </div>
+        <div class="footer-info" aria-label="Інформація">
+            <h4>Інформація</h4>
+            <ul>
+                <li><a href="#">Про нас</a></li>
+                <li><a href="#">Контакти</a></li>
+                <li><a href="#">Доставка та оплата</a></li>
+                <li><a href="#">Поширені питання</a></li>
+                <li><a href="#">Політика конфіденційності</a></li>
+            </ul>
+        </div>
+        <div class="footer-store-buttons" aria-label="Мобільні додатки">
+            <a href="#" class="store-btn" aria-label="Завантажити з App Store">
+                <img src="Images/appstore.png" alt="App Store" />
+            </a>
+            <a href="#" class="store-btn" aria-label="Завантажити з Google Play">
+                <img src="Images/googleplay.png" alt="Google Play" />
+            </a>
+        </div>
+        <div class="footer-social" aria-label="Соціальні мережі">
+            <a href="#" aria-label="Facebook" tabindex="0" role="link">
+                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                        d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5.012 3.676 9.163 8.438 9.878v-6.987H7.898v-2.89h2.54v-2.207c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.774-1.63 1.562v1.88h2.773l-.443 2.89h-2.33v6.987C18.324 21.163 22 17.012 22 12z" />
+                </svg>
+            </a>
+            <a href="#" aria-label="Instagram" tabindex="0" role="link">
+                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                        d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm10 3a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z" />
+                </svg>
+            </a>
+            <a href="#" aria-label="Twitter" tabindex="0" role="link">
+                <svg class="social-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path
+                        d="M22.46 6c-.77.35-1.6.58-2.46.69a4.3 4.3 0 0 0 1.88-2.37 8.6 8.6 0 0 1-2.72 1.04 4.3 4.3 0 0 0-7.32 3.92 12.23 12.23 0 0 1-8.87-4.5 4.28 4.28 0 0 0 1.33 5.74 4.24 4.24 0 0 1-1.95-.54v.05a4.3 4.3 0 0 0 3.45 4.21 4.28 4.28 0 0 1-1.94.07 4.3 4.3 0 0 0 4.01 2.98 8.64 8.64 0 0 1-5.34 1.85c-.35 0-.7-.02-1.04-.06a12.19 12.19 0 0 0 6.61 1.94c7.93 0 12.27-6.57 12.27-12.26 0-.19 0-.37-.01-.56A8.72 8.72 0 0 0 22.46 6z" />
+                </svg>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Модалка додавання оголошення -->
+    <div class="modal" id="addListingModal" role="dialog" aria-modal="true" aria-labelledby="addListingTitle"
+        aria-hidden="true" style="display:none;">
+        <div class="modal-content"
+            style="background:#fbe6a2; padding:20px; border-radius:20px; max-width:400px; margin: 10vh auto; position: relative;">
+            <button class="modal-close" aria-label="Закрити"
+                style="position:absolute; top:10px; right:12px; background:none; border:none; font-size:24px; cursor:pointer;">&times;</button>
+            <h2 id="addListingTitle">Додати оголошення</h2>
+            <form id="addListingForm">
+                <label for="productName">Назва товару:</label><br />
+                <input type="text" id="productName" name="productName" required
+                    style="width:100%; padding:8px; margin-bottom:12px;" />
+
+                <label for="productCategory">Категорія:</label><br />
+                <select id="productCategory" name="productCategory" required
+                    style="width:100%; padding:8px; margin-bottom:12px;">
+                    <option value="Іграшки">Іграшки</option>
+                    <option value="Одяг">Одяг</option>
+                    <option value="Для дому">Для дому</option>
+                    <option value="Подарунки">Подарунки</option>
+                    <option value="Електроніка">Електроніка</option>
+                    <option value="Книги">Книги</option>
+                </select>
+
+                <label for="productPrice">Ціна (грн):</label><br />
+                <input type="number" id="productPrice" name="productPrice" min="1" required
+                    style="width:100%; padding:8px; margin-bottom:12px;" />
+
+                <label for="productImage">URL зображення:</label><br />
+                <input type="url" id="productImage" name="productImage" required
+                    style="width:100%; padding:8px; margin-bottom:20px;" />
+
+                <button type="submit"
+                    style="background:#4b3e2a; color:#fbe6a2; padding:10px 20px; border:none; border-radius:12px; cursor:pointer; font-weight:700;">Додати</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Відкриття/закриття бокового меню категорій
+        const sideMenu = document.getElementById('sideMenu');
+        const menuToggleBtn = document.getElementById('menuToggleBtn');
+        menuToggleBtn.addEventListener('click', () => {
+            sideMenu.classList.toggle('open');
+        });
+
+        // Показ/приховування підкатегорій
+        sideMenu.querySelectorAll('.category-item').forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('open');
+                const sublist = item.nextElementSibling;
+                if (sublist) {
+                    sublist.classList.toggle('show');
+                }
+            });
+        });
+
+        // Меню акаунту
+        const accountBtn = document.getElementById('accountBtn');
+        const accountMenu = document.getElementById('accountMenu');
+        let accountMenuOpen = false;
+
+        accountBtn.addEventListener('click', e => {
+            accountMenuOpen = !accountMenuOpen;
+            accountMenu.classList.toggle('active', accountMenuOpen);
+            accountBtn.setAttribute('aria-expanded', accountMenuOpen);
+        });
+
+        // Закриття меню акаунту при кліку поза ним
+        document.addEventListener('click', (e) => {
+            if (!accountMenu.contains(e.target) && e.target !== accountBtn) {
+                accountMenu.classList.remove('active');
+                accountBtn.setAttribute('aria-expanded', 'false');
+                accountMenuOpen = false;
+            }
+        });
+
+        // Категорії "Тебе зацікавлять" фільтр за кнопкою
+        const categoryButtons = document.querySelectorAll('.you-may-like .category-buttons button');
+        const filterCategory = document.getElementById('filterCategory');
+
+        categoryButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterCategory.value = btn.dataset.category || '';
+                applyFilters();
+            });
+        });
+
+        // Пошук і сортування
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const sortBy = document.getElementById('sortBy');
+
+        searchBtn.addEventListener('click', applyFilters);
+        searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyFilters(); } });
+        sortBy.addEventListener('change', applyFilters);
+        filterCategory.addEventListener('change', applyFilters);
+
+        // Продукти
+        let products = [
+            { id: 1, name: "М’яка іграшка Жирафа", category: "Іграшки", price: 450, popularity: 10, image: "https://cdn-icons-png.flaticon.com/512/616/616408.png" },
+            { id: 2, name: "Футболка з жирафою", category: "Одяг", price: 320, popularity: 15, image: "https://cdn-icons-png.flaticon.com/512/149/149071.png" },
+            { id: 3, name: "Настільна лампа", category: "Для дому", price: 780, popularity: 5, image: "https://cdn-icons-png.flaticon.com/512/469/469381.png" },
+            { id: 4, name: "Подарунковий набір", category: "Подарунки", price: 560, popularity: 8, image: "https://cdn-icons-png.flaticon.com/512/2934/2934056.png" },
+            { id: 5, name: "Навушники", category: "Електроніка", price: 1200, popularity: 20, image: "https://cdn-icons-png.flaticon.com/512/727/727218.png" },
+            { id: 6, name: "Дитяча книга", category: "Книги", price: 140, popularity: 9, image: "https://cdn-icons-png.flaticon.com/512/1601/1601974.png" },
+        ];
+
+        function renderProducts(list) {
+            const container = document.getElementById('productList');
+            container.innerHTML = '';
+            if (list.length === 0) {
+                container.innerHTML = '<p>Товари не знайдено.</p>';
+                return;
+            }
+            list.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'listitem');
+                card.innerHTML = `
+        <img src="${p.image}" alt="${p.name}" />
+        <div><strong>${p.name}</strong></div>
+        <div>Ціна: ${p.price} грн</div>
+      `;
+                container.appendChild(card);
+            });
+        }
+
+        function applyFilters() {
+            let filtered = [...products];
+            const cat = filterCategory.value;
+            const searchTerm = searchInput.value.trim().toLowerCase();
+            const sortVal = sortBy.value;
+
+            if (cat) filtered = filtered.filter(p => p.category === cat);
+            if (searchTerm) filtered = filtered.filter(p => p.name.toLowerCase().includes(searchTerm));
+
+            if (sortVal === 'price-asc') filtered.sort((a, b) => a.price - b.price);
+            else if (sortVal === 'price-desc') filtered.sort((a, b) => b.price - a.price);
+            else filtered.sort((a, b) => b.popularity - a.popularity);
+
+            renderProducts(filtered);
+        }
+
+        // Початковий рендер
+        renderProducts(products);
+
+        // Модалка додавання оголошення
+        const addListingBtn = document.getElementById('addListingBtn');
+        const addListingModal = document.getElementById('addListingModal');
+        const modalCloseBtn = addListingModal.querySelector('.modal-close');
+        const addListingForm = document.getElementById('addListingForm');
+
+        addListingBtn.addEventListener('click', () => {
+            addListingModal.style.display = 'block';
+            addListingModal.setAttribute('aria-hidden', 'false');
+            addListingForm.productName.focus();
+        });
+        modalCloseBtn.addEventListener('click', () => {
+            addListingModal.style.display = 'none';
+            addListingModal.setAttribute('aria-hidden', 'true');
+            addListingForm.reset();
+        });
+        addListingModal.addEventListener('click', e => {
+            if (e.target === addListingModal) {
+                addListingModal.style.display = 'none';
+                addListingModal.setAttribute('aria-hidden', 'true');
+                addListingForm.reset();
+            }
+        });
+        addListingForm.addEventListener('submit', e => {
+            e.preventDefault();
+            const newProduct = {
+                id: Date.now(),
+                name: addListingForm.productName.value,
+                category: addListingForm.productCategory.value,
+                price: Number(addListingForm.productPrice.value),
+                image: addListingForm.productImage.value,
+                popularity: 0
+            };
+            products.push(newProduct);
+            applyFilters();
+            addListingModal.style.display = 'none';
+            addListingModal.setAttribute('aria-hidden', 'true');
+            addListingForm.reset();
+            alert('Оголошення додано!');
+        });
+    </script>
+
+</body>
+
+</html>
