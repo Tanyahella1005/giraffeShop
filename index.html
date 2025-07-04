@@ -28,6 +28,9 @@
             background: var(--gray);
             color: var(--dark);
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         /* Хедер */
@@ -182,18 +185,24 @@
         .sidebar {
             position: fixed;
             top: 60px;
-            left: -400px;
-            width: 400px;
-            max-width: 90%;
+            left: -300px;
+            width: 300px;
             height: calc(100vh - 60px);
             background: var(--light);
             z-index: 1000;
             transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             overflow-y: auto;
+            display: flex;
         }
 
         .sidebar.active {
             left: 0;
+        }
+
+        .main-categories {
+            width: 100%;
+            height: 100%;
+            overflow-y: auto;
         }
 
         .sidebar-header {
@@ -250,20 +259,29 @@
             transition: transform 0.3s;
             font-size: 12px;
             color: #777;
+            padding: 5px;
         }
 
-        .subcategories {
-            list-style: none;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            padding-left: 30px;
-            background: rgba(0, 0, 0, 0.02);
+        .subcategories-container {
+            position: absolute;
+            left: 100%;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: var(--light);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            transform: translateX(-20px);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1001;
+            overflow-y: auto;
         }
 
-        .category-item:hover .subcategories {
-            max-height: 500px;
-            transition: max-height 0.5s ease-in;
+        .category-item:hover .subcategories-container {
+            transform: translateX(0);
+            opacity: 1;
+            visibility: visible;
         }
 
         .category-item:hover .arrow-icon {
@@ -271,8 +289,13 @@
             color: var(--primary);
         }
 
-        .subcategory-item {
+        .subcategories {
+            list-style: none;
             padding: 10px 0;
+        }
+
+        .subcategory-item {
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             cursor: pointer;
@@ -280,6 +303,7 @@
         }
 
         .subcategory-item:hover {
+            background: rgba(255, 107, 0, 0.1);
             color: var(--primary);
         }
 
@@ -294,6 +318,7 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 24px;
+            flex: 1;
         }
 
         /* Банер */
@@ -677,6 +702,212 @@
             padding: 20px;
         }
 
+        /* Модалька міст */
+        .city-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .city-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .city-item:hover {
+            background: var(--gray);
+        }
+
+        .city-item.selected {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Модалька авторизації */
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .auth-tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .auth-tab.active {
+            border-bottom: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .auth-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.1);
+        }
+
+        .auth-form button {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .auth-form button:hover {
+            background: var(--primary-light);
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #eee;
+            margin: 0 10px;
+        }
+
+        .social-auth {
+            margin-top: 20px;
+        }
+
+        .social-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .social-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .facebook {
+            background: #3b5998;
+        }
+
+        .google {
+            background: #db4437;
+        }
+
+        /* Модалька обраного */
+        .wishlist-item {
+            display: flex;
+            gap: 16px;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            align-items: center;
+            position: relative;
+        }
+
+        .wishlist-item img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .wishlist-item-info {
+            flex: 1;
+        }
+
+        .wishlist-item-title {
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .wishlist-item-price {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 15px;
+        }
+
+        .wishlist-remove {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .wishlist-remove:hover {
+            color: var(--primary);
+        }
+
+        /* Модалька сповіщень */
+        .notification-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .notification-item.unread {
+            background: rgba(255, 107, 0, 0.05);
+        }
+
+        .notification-time {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .notification-remove {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .notification-remove:hover {
+            color: var(--primary);
+        }
+
         /* Адаптація */
         @media (max-width: 992px) {
             .footer-container {
@@ -721,6 +952,14 @@
             .products-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .subcategories-container {
+                width: 280px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -750,7 +989,7 @@
 
             <div class="logo">
                 <img src="https://i.imgur.com/7vQhBQj.png" alt="Жираф">
-                <span>Giraffe</span>
+                <span>Жираф</span>
             </div>
         </div>
 
@@ -785,127 +1024,145 @@
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <span>Категорії</span>
-            <button class="close-sidebar" id="closeSidebar">×</button>
+        <div class="main-categories">
+            <div class="sidebar-header">
+                <span>Категорії</span>
+                <button class="close-sidebar" id="closeSidebar">×</button>
+            </div>
+            <ul class="categories">
+                <li class="category-item" data-category="electronics">
+                    <div class="category-header">
+                        <span><i class="fas fa-mobile-alt category-icon"></i>Електроніка</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="electronicsSub">
+                            <li class="subcategory-item"><i class="fas fa-mobile"></i>Смартфони</li>
+                            <li class="subcategory-item"><i class="fas fa-laptop"></i>Ноутбуки</li>
+                            <li class="subcategory-item"><i class="fas fa-tv"></i>Телевізори</li>
+                            <li class="subcategory-item"><i class="fas fa-headphones"></i>Навушники</li>
+                            <li class="subcategory-item"><i class="fas fa-tablet-alt"></i>Планшети</li>
+                            <li class="subcategory-item"><i class="fas fa-camera"></i>Фотоапарати</li>
+                            <li class="subcategory-item"><i class="fas fa-music"></i>Аудіотехніка</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="clothing">
+                    <div class="category-header">
+                        <span><i class="fas fa-tshirt category-icon"></i>Одяг та взуття</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="clothingSub">
+                            <li class="subcategory-item"><i class="fas fa-male"></i>Чоловічий одяг</li>
+                            <li class="subcategory-item"><i class="fas fa-female"></i>Жіночий одяг</li>
+                            <li class="subcategory-item"><i class="fas fa-child"></i>Дитячий одяг</li>
+                            <li class="subcategory-item"><i class="fas fa-shoe-prints"></i>Взуття</li>
+                            <li class="subcategory-item"><i class="fas fa-scarf"></i>Аксесуари</li>
+                            <li class="subcategory-item"><i class="fas fa-hat-cowboy"></i>Головні убори</li>
+                            <li class="subcategory-item"><i class="fas fa-shopping-bag"></i>Сумки та рюкзаки</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="home">
+                    <div class="category-header">
+                        <span><i class="fas fa-home category-icon"></i>Дім і сад</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="homeSub">
+                            <li class="subcategory-item"><i class="fas fa-couch"></i>Меблі</li>
+                            <li class="subcategory-item"><i class="fas fa-rug"></i>Текстиль</li>
+                            <li class="subcategory-item"><i class="fas fa-utensils"></i>Кухонне приладдя</li>
+                            <li class="subcategory-item"><i class="fas fa-lightbulb"></i>Освітлення</li>
+                            <li class="subcategory-item"><i class="fas fa-leaf"></i>Садовий інвентар</li>
+                            <li class="subcategory-item"><i class="fas fa-seedling"></i>Рослини</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="auto">
+                    <div class="category-header">
+                        <span><i class="fas fa-car category-icon"></i>Автотовари</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="autoSub">
+                            <li class="subcategory-item"><i class="fas fa-tire"></i>Шини та диски</li>
+                            <li class="subcategory-item"><i class="fas fa-car-side"></i>Автоаксесуари</li>
+                            <li class="subcategory-item"><i class="fas fa-pump-soap"></i>Автохімія</li>
+                            <li class="subcategory-item"><i class="fas fa-tools"></i>Запчастини</li>
+                            <li class="subcategory-item"><i class="fas fa-volume-up"></i>Автозвук</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="kids">
+                    <div class="category-header">
+                        <span><i class="fas fa-baby category-icon"></i>Дитячі товари</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="kidsSub">
+                            <li class="subcategory-item"><i class="fas fa-gamepad"></i>Іграшки</li>
+                            <li class="subcategory-item"><i class="fas fa-baby-carriage"></i>Дитячі коляски</li>
+                            <li class="subcategory-item"><i class="fas fa-bottle-droplet"></i>Дитяче харчування</li>
+                            <li class="subcategory-item"><i class="fas fa-school"></i>Школа</li>
+                            <li class="subcategory-item"><i class="fas fa-bath"></i>Гігієна</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="sports">
+                    <div class="category-header">
+                        <span><i class="fas fa-running category-icon"></i>Спорт та відпочинок</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="sportsSub">
+                            <li class="subcategory-item"><i class="fas fa-bicycle"></i>Велосипеди</li>
+                            <li class="subcategory-item"><i class="fas fa-dumbbell"></i>Тренажери</li>
+                            <li class="subcategory-item"><i class="fas fa-campground"></i>Кемпінг</li>
+                            <li class="subcategory-item"><i class="fas fa-fish"></i>Риболовля</li>
+                            <li class="subcategory-item"><i class="fas fa-hiking"></i>Туризм</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="books">
+                    <div class="category-header">
+                        <span><i class="fas fa-book category-icon"></i>Книги та канцелярія</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="booksSub">
+                            <li class="subcategory-item"><i class="fas fa-book-open"></i>Художня література</li>
+                            <li class="subcategory-item"><i class="fas fa-graduation-cap"></i>Навчальна література</li>
+                            <li class="subcategory-item"><i class="fas fa-pencil-alt"></i>Канцелярія</li>
+                            <li class="subcategory-item"><i class="fas fa-print"></i>Офісні товари</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="beauty">
+                    <div class="category-header">
+                        <span><i class="fas fa-spa category-icon"></i>Краса та здоров'я</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <ul class="subcategories" id="beautySub">
+                            <li class="subcategory-item"><i class="fas fa-paint-brush"></i>Косметика</li>
+                            <li class="subcategory-item"><i class="fas fa-cut"></i>Догляд за волоссям</li>
+                            <li class="subcategory-item"><i class="fas fa-spray-can"></i>Парфуми</li>
+                            <li class="subcategory-item"><i class="fas fa-first-aid"></i>Медичні товари</li>
+                            <li class="subcategory-item"><i class="fas fa-pills"></i>Вітаміни</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <ul class="categories">
-            <li class="category-item" data-category="electronics">
-                <div class="category-header">
-                    <span><i class="fas fa-mobile-alt category-icon"></i>Електроніка</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="electronicsSub">
-                    <li class="subcategory-item"><i class="fas fa-mobile"></i>Смартфони</li>
-                    <li class="subcategory-item"><i class="fas fa-laptop"></i>Ноутбуки</li>
-                    <li class="subcategory-item"><i class="fas fa-tv"></i>Телевізори</li>
-                    <li class="subcategory-item"><i class="fas fa-headphones"></i>Навушники</li>
-                    <li class="subcategory-item"><i class="fas fa-tablet-alt"></i>Планшети</li>
-                    <li class="subcategory-item"><i class="fas fa-camera"></i>Фотоапарати</li>
-                    <li class="subcategory-item"><i class="fas fa-music"></i>Аудіотехніка</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="clothing">
-                <div class="category-header">
-                    <span><i class="fas fa-tshirt category-icon"></i>Одяг та взуття</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="clothingSub">
-                    <li class="subcategory-item"><i class="fas fa-male"></i>Чоловічий одяг</li>
-                    <li class="subcategory-item"><i class="fas fa-female"></i>Жіночий одяг</li>
-                    <li class="subcategory-item"><i class="fas fa-child"></i>Дитячий одяг</li>
-                    <li class="subcategory-item"><i class="fas fa-shoe-prints"></i>Взуття</li>
-                    <li class="subcategory-item"><i class="fas fa-scarf"></i>Аксесуари</li>
-                    <li class="subcategory-item"><i class="fas fa-hat-cowboy"></i>Головні убори</li>
-                    <li class="subcategory-item"><i class="fas fa-shopping-bag"></i>Сумки та рюкзаки</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="home">
-                <div class="category-header">
-                    <span><i class="fas fa-home category-icon"></i>Дім і сад</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="homeSub">
-                    <li class="subcategory-item"><i class="fas fa-couch"></i>Меблі</li>
-                    <li class="subcategory-item"><i class="fas fa-rug"></i>Текстиль</li>
-                    <li class="subcategory-item"><i class="fas fa-utensils"></i>Кухонне приладдя</li>
-                    <li class="subcategory-item"><i class="fas fa-lightbulb"></i>Освітлення</li>
-                    <li class="subcategory-item"><i class="fas fa-leaf"></i>Садовий інвентар</li>
-                    <li class="subcategory-item"><i class="fas fa-seedling"></i>Рослини</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="auto">
-                <div class="category-header">
-                    <span><i class="fas fa-car category-icon"></i>Автотовари</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="autoSub">
-                    <li class="subcategory-item"><i class="fas fa-tire"></i>Шини та диски</li>
-                    <li class="subcategory-item"><i class="fas fa-car-side"></i>Автоаксесуари</li>
-                    <li class="subcategory-item"><i class="fas fa-pump-soap"></i>Автохімія</li>
-                    <li class="subcategory-item"><i class="fas fa-tools"></i>Запчастини</li>
-                    <li class="subcategory-item"><i class="fas fa-volume-up"></i>Автозвук</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="kids">
-                <div class="category-header">
-                    <span><i class="fas fa-baby category-icon"></i>Дитячі товари</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="kidsSub">
-                    <li class="subcategory-item"><i class="fas fa-gamepad"></i>Іграшки</li>
-                    <li class="subcategory-item"><i class="fas fa-baby-carriage"></i>Дитячі коляски</li>
-                    <li class="subcategory-item"><i class="fas fa-bottle-droplet"></i>Дитяче харчування</li>
-                    <li class="subcategory-item"><i class="fas fa-school"></i>Школа</li>
-                    <li class="subcategory-item"><i class="fas fa-bath"></i>Гігієна</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="sports">
-                <div class="category-header">
-                    <span><i class="fas fa-running category-icon"></i>Спорт та відпочинок</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="sportsSub">
-                    <li class="subcategory-item"><i class="fas fa-bicycle"></i>Велосипеди</li>
-                    <li class="subcategory-item"><i class="fas fa-dumbbell"></i>Тренажери</li>
-                    <li class="subcategory-item"><i class="fas fa-campground"></i>Кемпінг</li>
-                    <li class="subcategory-item"><i class="fas fa-fish"></i>Риболовля</li>
-                    <li class="subcategory-item"><i class="fas fa-hiking"></i>Туризм</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="books">
-                <div class="category-header">
-                    <span><i class="fas fa-book category-icon"></i>Книги та канцелярія</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="booksSub">
-                    <li class="subcategory-item"><i class="fas fa-book-open"></i>Художня література</li>
-                    <li class="subcategory-item"><i class="fas fa-graduation-cap"></i>Навчальна література</li>
-                    <li class="subcategory-item"><i class="fas fa-pencil-alt"></i>Канцелярія</li>
-                    <li class="subcategory-item"><i class="fas fa-print"></i>Офісні товари</li>
-                </ul>
-            </li>
-
-            <li class="category-item" data-category="beauty">
-                <div class="category-header">
-                    <span><i class="fas fa-spa category-icon"></i>Краса та здоров'я</span>
-                    <i class="fas fa-chevron-right arrow-icon"></i>
-                </div>
-                <ul class="subcategories" id="beautySub">
-                    <li class="subcategory-item"><i class="fas fa-paint-brush"></i>Косметика</li>
-                    <li class="subcategory-item"><i class="fas fa-cut"></i>Догляд за волоссям</li>
-                    <li class="subcategory-item"><i class="fas fa-spray-can"></i>Парфуми</li>
-                    <li class="subcategory-item"><i class="fas fa-first-aid"></i>Медичні товари</li>
-                    <li class="subcategory-item"><i class="fas fa-pills"></i>Вітаміни</li>
-                </ul>
-            </li>
-        </ul>
     </div>
 
     <!-- Головний контент -->
@@ -1019,7 +1276,7 @@
             <div class="footer-column">
                 <div class="footer-logo">
                     <img src="https://i.imgur.com/7vQhBQj.png" alt="Жираф">
-                    <span>Giraffe</span>
+                    <span>Жираф</span>
                 </div>
                 <p class="footer-about">
                     Маркетплейс Жираф - це сучасний сервіс для покупки та продажу товарів.
@@ -1060,7 +1317,7 @@
         </div>
     </footer>
 
-    <!-- Модальні вікна -->
+    <!-- Модальне вікно для геолокації -->
     <div class="modal" id="locationModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1069,7 +1326,7 @@
             </div>
             <div class="modal-body">
                 <div class="search-bar" style="width: 100%; margin-bottom: 16px;">
-                    <input type="text" placeholder="Пошук міста...">
+                    <input type="text" placeholder="Пошук міста..." id="citySearch">
                     <button><i class="fas fa-search"></i></button>
                 </div>
                 <div class="city-list">
@@ -1088,11 +1345,12 @@
         </div>
     </div>
 
+    <!-- Модальне вікно для авторизації -->
     <div class="modal" id="authModal">
         <div class="modal-content">
-            <button class="close-modal">&times;</button>
             <div class="modal-header">
                 <h3>Вхід / Реєстрація</h3>
+                <button class="close-modal">&times;</button>
             </div>
             <div class="modal-body">
                 <div class="auth-tabs">
@@ -1131,6 +1389,7 @@
         </div>
     </div>
 
+    <!-- Модальне вікно для обраного -->
     <div class="modal" id="wishlistModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1179,6 +1438,7 @@
         </div>
     </div>
 
+    <!-- Модальне вікно для сповіщень -->
     <div class="modal" id="notificationsModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1189,21 +1449,33 @@
                 <div class="notification-item unread">
                     <div class="notification-text">Ваше оголошення "iPhone 13 Pro" схвалено модератором</div>
                     <div class="notification-time">2 години тому</div>
+                    <div class="notification-remove">
+                        <i class="fas fa-times"></i>
+                    </div>
                 </div>
 
                 <div class="notification-item unread">
                     <div class="notification-text">Новий коментар до вашого оголошення</div>
                     <div class="notification-time">5 годин тому</div>
+                    <div class="notification-remove">
+                        <i class="fas fa-times"></i>
+                    </div>
                 </div>
 
                 <div class="notification-item">
                     <div class="notification-text">Ваше замовлення #12345 відправлено</div>
                     <div class="notification-time">Вчора</div>
+                    <div class="notification-remove">
+                        <i class="fas fa-times"></i>
+                    </div>
                 </div>
 
                 <div class="notification-item">
                     <div class="notification-text">Акція: знижка 20% на всі смартфони</div>
                     <div class="notification-time">2 дні тому</div>
+                    <div class="notification-remove">
+                        <i class="fas fa-times"></i>
+                    </div>
                 </div>
 
                 <button
@@ -1214,6 +1486,7 @@
         </div>
     </div>
 
+    <!-- Модальне вікно для додавання оголошення -->
     <div class="modal" id="addAdModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1358,6 +1631,32 @@
                     item.style.opacity = '0';
                     setTimeout(() => {
                         item.remove();
+                        // Оновлюємо лічильник
+                        const badge = document.querySelector('#wishlistBtn .icon-badge');
+                        if (badge) {
+                            const count = parseInt(badge.textContent) - 1;
+                            badge.textContent = count > 0 ? count : '';
+                            if (count <= 0) badge.remove();
+                        }
+                    }, 300);
+                });
+            });
+
+            // Видалення сповіщень
+            document.querySelectorAll('.notification-remove').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const item = e.target.closest('.notification-item');
+                    item.style.opacity = '0';
+                    setTimeout(() => {
+                        item.remove();
+                        // Оновлюємо лічильник
+                        const badge = document.querySelector('#notificationsBtn .icon-badge');
+                        if (badge) {
+                            const count = parseInt(badge.textContent) - 1;
+                            badge.textContent = count > 0 ? count : '';
+                            if (count <= 0) badge.remove();
+                        }
                     }, 300);
                 });
             });
@@ -1365,40 +1664,78 @@
             // Вибір міста
             document.querySelectorAll('.city-item').forEach(item => {
                 item.addEventListener('click', () => {
+                    // Видаляємо виділення з усіх елементів
+                    document.querySelectorAll('.city-item').forEach(city => {
+                        city.classList.remove('selected');
+                    });
+
+                    // Додаємо виділення до вибраного елемента
+                    item.classList.add('selected');
+
                     const city = item.textContent;
                     document.querySelector('.location span').textContent = city;
-                    locationModal.classList.remove('active');
+
+                    // Закриваємо модальне вікно через 0.5 секунди
+                    setTimeout(() => {
+                        locationModal.classList.remove('active');
+                    }, 500);
                 });
             });
 
-            // Плавне відкриття/закриття підкатегорій при наведенні на стрілочку
+            // Пошук міст
+            const citySearch = document.getElementById('citySearch');
+            if (citySearch) {
+                citySearch.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase();
+                    document.querySelectorAll('.city-item').forEach(item => {
+                        const cityName = item.textContent.toLowerCase();
+                        if (cityName.includes(searchTerm)) {
+                            item.style.display = 'flex';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            }
+
+            // Закриття підкатегорій при кліку поза ними
+            document.addEventListener('click', function (e) {
+                if (!e.target.closest('.category-item') && !e.target.closest('.subcategories-container')) {
+                    document.querySelectorAll('.subcategories-container').forEach(sub => {
+                        sub.style.transform = 'translateX(-20px)';
+                        sub.style.opacity = '0';
+                        sub.style.visibility = 'hidden';
+                    });
+                    document.querySelectorAll('.arrow-icon').forEach(arrow => {
+                        arrow.style.transform = '';
+                        arrow.style.color = '';
+                    });
+                }
+            });
+
+            // Відкриття підкатегорій при наведенні на стрілочку
             document.querySelectorAll('.arrow-icon').forEach(arrow => {
                 arrow.addEventListener('mouseenter', function () {
+                    const categoryItem = this.closest('.category-item');
+                    const subcategories = categoryItem.querySelector('.subcategories-container');
+
+                    // Закриваємо всі інші підкатегорії
+                    document.querySelectorAll('.subcategories-container').forEach(sub => {
+                        if (sub !== subcategories) {
+                            sub.style.transform = 'translateX(-20px)';
+                            sub.style.opacity = '0';
+                            sub.style.visibility = 'hidden';
+                        }
+                    });
+
+                    // Відкриваємо поточну підкатегорію
+                    subcategories.style.transform = 'translateX(0)';
+                    subcategories.style.opacity = '1';
+                    subcategories.style.visibility = 'visible';
+
+                    // Обертаємо стрілочку
                     this.style.transform = 'rotate(90deg)';
                     this.style.color = 'var(--primary)';
-                    const subcategories = this.closest('.category-item').querySelector('.subcategories');
-                    subcategories.style.maxHeight = '500px';
-                });
-
-                arrow.addEventListener('mouseleave', function () {
-                    const categoryItem = this.closest('.category-item');
-                    if (!categoryItem.matches(':hover')) {
-                        this.style.transform = '';
-                        this.style.color = '';
-                        const subcategories = categoryItem.querySelector('.subcategories');
-                        subcategories.style.maxHeight = '0';
-                    }
-                });
-            });
-
-            // Закриття підкатегорій при виході з категорії
-            document.querySelectorAll('.category-item').forEach(item => {
-                item.addEventListener('mouseleave', function () {
-                    const arrow = this.querySelector('.arrow-icon');
-                    arrow.style.transform = '';
-                    arrow.style.color = '';
-                    const subcategories = this.querySelector('.subcategories');
-                    subcategories.style.maxHeight = '0';
                 });
             });
         });
