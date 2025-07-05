@@ -1930,6 +1930,7 @@
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const closeSidebar = document.getElementById('closeSidebar');
             const subcategoryContainers = document.querySelectorAll('.subcategories-container');
+            const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 
             burgerMenu.addEventListener('click', () => {
                 const header = document.getElementById('mainHeader');
@@ -1941,6 +1942,7 @@
 
                 sidebarOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
+                document.body.style.paddingRight = scrollBarWidth + 'px'; // компенсація відсутності скролу
             });
 
 
@@ -1948,6 +1950,7 @@
                 sidebar.classList.remove('active');
                 sidebarOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
 
                 // Закрити підкатегорії
                 subcategoryContainers.forEach(container => {
@@ -1959,6 +1962,7 @@
                 sidebar.classList.remove('active');
                 sidebarOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+                document.body.style.paddingRight = '';
 
                 // Закрити підкатегорії
                 subcategoryContainers.forEach(container => {
