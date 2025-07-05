@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Жираф - маркетплейс</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
     <style>
-        
         :root {
             --primary: #FF6B00;
             --primary-light: #FF8E53;
@@ -60,7 +60,7 @@
         .giraffe-footer {
             position: absolute;
             right: 20px;
-            bottom: 120px;
+            bottom: 180px;
             z-index: 10;
         }
 
@@ -337,11 +337,11 @@
         }
 
         .subcategories-container {
-            position: absolute;
-            left: 100%;
-            top: 0;
+            position: fixed;
+            left: 300px;
+            top: 60px;
             width: 300px;
-            height: 100%;
+            height: calc(100vh - 60px);
             background: var(--light);
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             transform: translateX(-20px);
@@ -352,13 +352,13 @@
             overflow-y: auto;
         }
 
-        .category-item:hover .subcategories-container {
+        .subcategories-container.active {
             transform: translateX(0);
             opacity: 1;
             visibility: visible;
         }
 
-        .category-item:hover .arrow-icon {
+        .category-item.active .arrow-icon {
             transform: rotate(90deg);
             color: var(--primary);
         }
@@ -387,6 +387,20 @@
             color: var(--primary);
         }
 
+        .back-button {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--gray);
+            cursor: pointer;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .back-button i {
+            margin-right: 8px;
+        }
+
         /* Головний контент */
         .container {
             max-width: 1200px;
@@ -400,13 +414,14 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 40px;
+            padding: 40px 5%;
             background: linear-gradient(135deg, var(--primary), var(--primary-light));
             color: white;
-            border-radius: var(--radius);
             margin-bottom: 24px;
             position: relative;
             overflow: hidden;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
         }
 
         .banner::before {
@@ -470,11 +485,13 @@
         .banner-image {
             position: relative;
             z-index: 1;
+            width: 300px;
+            height: 200px;
         }
 
-        .banner-image img {
-            max-height: 180px;
-            animation: float 4s ease-in-out infinite;
+        #banner-animation {
+            width: 100%;
+            height: 100%;
         }
 
         /* Секції */
@@ -758,7 +775,6 @@
             margin-left: calc(-50vw + 50%);
             padding: 24px 5%;
             background: var(--light);
-            box-shadow: var(--shadow);
             margin-bottom: 24px;
         }
 
@@ -1082,8 +1098,9 @@
                 margin-bottom: 20px;
             }
 
-            .banner-image img {
-                max-height: 140px;
+            .banner-image {
+                width: 100%;
+                height: 180px;
             }
 
             .categories-grid {
@@ -1190,6 +1207,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="electronics">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="electronicsSub">
                             <li class="subcategory-item"><i class="fas fa-mobile"></i>Смартфони</li>
                             <li class="subcategory-item"><i class="fas fa-laptop"></i>Ноутбуки</li>
@@ -1210,6 +1230,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="clothing">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="clothingSub">
                             <li class="subcategory-item"><i class="fas fa-male"></i>Чоловічий одяг</li>
                             <li class="subcategory-item"><i class="fas fa-female"></i>Жіночий одяг</li>
@@ -1230,6 +1253,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="home">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="homeSub">
                             <li class="subcategory-item"><i class="fas fa-couch"></i>Меблі</li>
                             <li class="subcategory-item"><i class="fas fa-rug"></i>Текстиль</li>
@@ -1250,6 +1276,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="auto">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="autoSub">
                             <li class="subcategory-item"><i class="fas fa-tire"></i>Шини та диски</li>
                             <li class="subcategory-item"><i class="fas fa-car-side"></i>Автоаксесуари</li>
@@ -1269,6 +1298,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="kids">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="kidsSub">
                             <li class="subcategory-item"><i class="fas fa-gamepad"></i>Іграшки</li>
                             <li class="subcategory-item"><i class="fas fa-baby-carriage"></i>Дитячі коляски</li>
@@ -1288,6 +1320,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="sports">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="sportsSub">
                             <li class="subcategory-item"><i class="fas fa-bicycle"></i>Велосипеди</li>
                             <li class="subcategory-item"><i class="fas fa-dumbbell"></i>Тренажери</li>
@@ -1307,6 +1342,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="books">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="booksSub">
                             <li class="subcategory-item"><i class="fas fa-book-open"></i>Художня література</li>
                             <li class="subcategory-item"><i class="fas fa-graduation-cap"></i>Навчальна література</li>
@@ -1325,6 +1363,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="beauty">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="beautySub">
                             <li class="subcategory-item"><i class="fas fa-paint-brush"></i>Косметика</li>
                             <li class="subcategory-item"><i class="fas fa-cut"></i>Догляд за волоссям</li>
@@ -1344,6 +1385,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="food">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="foodSub">
                             <li class="subcategory-item"><i class="fas fa-wine-bottle"></i>Напої</li>
                             <li class="subcategory-item"><i class="fas fa-cheese"></i>Молочні продукти</li>
@@ -1362,6 +1406,9 @@
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
                     <div class="subcategories-container">
+                        <div class="back-button" data-back="pets">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
                         <ul class="subcategories" id="petsSub">
                             <li class="subcategory-item"><i class="fas fa-dog"></i>Для собак</li>
                             <li class="subcategory-item"><i class="fas fa-cat"></i>Для котів</li>
@@ -1386,7 +1433,7 @@
                 <button class="add-ad-btn" id="addAdBtn">Додати оголошення</button>
             </div>
             <div class="banner-image">
-                <img src="https://i.imgur.com/7vQhBQj.png" alt="Жираф">
+                <div id="banner-animation"></div>
             </div>
         </section>
 
@@ -1565,7 +1612,7 @@
 
     <!-- Жираф над футером -->
     <div class="giraffe-footer">
-        <img src="animations/Animation - 1751651077644.json" alt="Жираф">
+        <img src="https://i.imgur.com/7vQhBQj.png" alt="Жираф">
     </div>
 
     <!-- Футер -->
@@ -1827,6 +1874,15 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Завантаження анімації для банера
+            const bannerAnimation = lottie.loadAnimation({
+                container: document.getElementById('banner-animation'),
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: 'animations/Animation - 1751650909158.json'
+            });
+
             // Створення анімації листочків
             function createLeaves() {
                 const leafTypes = [
@@ -2017,44 +2073,46 @@
                 });
             }
 
-            // Закриття підкатегорій при кліку поза ними
-            document.addEventListener('click', function (e) {
-                if (!e.target.closest('.category-item') && !e.target.closest('.subcategories-container')) {
-                    document.querySelectorAll('.subcategories-container').forEach(sub => {
-                        sub.style.transform = 'translateX(-20px)';
-                        sub.style.opacity = '0';
-                        sub.style.visibility = 'hidden';
-                    });
-                    document.querySelectorAll('.arrow-icon').forEach(arrow => {
-                        arrow.style.transform = '';
-                        arrow.style.color = '';
-                    });
-                }
-            });
-
-            // Відкриття підкатегорій при наведенні на стрілочку
-            document.querySelectorAll('.arrow-icon').forEach(arrow => {
-                arrow.addEventListener('mouseenter', function () {
+            // Відкриття/закриття підкатегорій
+            document.querySelectorAll('.category-header').forEach(header => {
+                header.addEventListener('click', function (e) {
                     const categoryItem = this.closest('.category-item');
                     const subcategories = categoryItem.querySelector('.subcategories-container');
 
                     // Закриваємо всі інші підкатегорії
                     document.querySelectorAll('.subcategories-container').forEach(sub => {
                         if (sub !== subcategories) {
-                            sub.style.transform = 'translateX(-20px)';
-                            sub.style.opacity = '0';
-                            sub.style.visibility = 'hidden';
+                            sub.classList.remove('active');
                         }
                     });
 
-                    // Відкриваємо поточну підкатегорію
-                    subcategories.style.transform = 'translateX(0)';
-                    subcategories.style.opacity = '1';
-                    subcategories.style.visibility = 'visible';
+                    document.querySelectorAll('.category-item').forEach(item => {
+                        if (item !== categoryItem) {
+                            item.classList.remove('active');
+                        }
+                    });
 
-                    // Обертаємо стрілочку
-                    this.style.transform = 'rotate(90deg)';
-                    this.style.color = 'var(--primary)';
+                    // Відкриваємо/закриваємо поточну підкатегорію
+                    if (subcategories.classList.contains('active')) {
+                        subcategories.classList.remove('active');
+                        categoryItem.classList.remove('active');
+                    } else {
+                        subcategories.classList.add('active');
+                        categoryItem.classList.add('active');
+                    }
+                });
+            });
+
+            // Кнопка "Назад" в підкатегоріях
+            document.querySelectorAll('.back-button').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const category = this.getAttribute('data-back');
+                    const categoryItem = document.querySelector(`.category-item[data-category="${category}"]`);
+                    const subcategories = categoryItem.querySelector('.subcategories-container');
+
+                    subcategories.classList.remove('active');
+                    categoryItem.classList.remove('active');
                 });
             });
 
