@@ -263,7 +263,7 @@
             position: fixed;
             top: 105px;
             left: -300px;
-            width: 200px;
+            width: 245px;
             height: calc(100vh - 60px);
             background: var(--light);
             z-index: 1000;
@@ -278,8 +278,8 @@
 
         .main-categories {
             width: 100%;
-            height: 100%;
-            overflow-y: auto;
+            height: auto; /* можна залишити або прибрати */
+            overflow: hidden;
         }
 
         .sidebar-header {
@@ -322,29 +322,40 @@
 
         .category-header {
             display: flex;
-            justify-content: space-between;
+            gap: 10px;
             align-items: center;
+            padding-right: 8px;
         }
 
         .category-icon {
-            margin-right: 10px;
+            width: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: var(--primary);
-            width: 20px;
-            text-align: center;
+            font-size: 16px;
+        }
+        .category-title {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 14px;
+            color: #333;
         }
 
         .arrow-icon {
-            transition: transform 0.3s;
             font-size: 12px;
-            color: #777;
+            color: #999;
+            transition: transform 0.3s ease;
             padding: 5px;
         }
 
         .subcategories-container {
             position: fixed;
-            left: 200px;
+            left: 250px;
             top: 105px;
-            width: 200px;
+            width: 250px;
             height: calc(100vh - 60px);
             background: var(--light);
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -1207,9 +1218,9 @@
             <ul class="categories">
                 <li class="category-item" data-category="electronics">
                     <div class="category-header">
-                        <span><i class="fas fa-mobile-alt category-icon"></i>Електроніка</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Електроніка</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="electronics">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1230,9 +1241,9 @@
 
                 <li class="category-item" data-category="clothing">
                     <div class="category-header">
-                        <span><i class="fas fa-tshirt category-icon"></i>Одяг та взуття</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Одяг та взуття</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="clothing">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1251,11 +1262,53 @@
                     </div>
                 </li>
 
-                <li class="category-item" data-category="home">
+                <li class="category-item" data-category="clothing">
                     <div class="category-header">
-                        <span><i class="fas fa-home category-icon"></i>Дім і сад</span>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Для дому</span>
                         <i class="fas fa-chevron-right arrow-icon"></i>
                     </div>
+                    <div class="subcategories-container">
+                        <div class="back-button" data-back="clothing">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
+                        <ul class="subcategories" id="clothingSub">
+                            <li class="subcategory-item"><i class="fas fa-male"></i>Меблі</li>
+                            <li class="subcategory-item"><i class="fas fa-female"></i>Декорг</li>
+                            <li class="subcategory-item"><i class="fas fa-child"></i>Освітлення</li>
+                            <li class="subcategory-item"><i class="fas fa-shoe-prints"></i>Текстиль</li>
+                            <li class="subcategory-item"><i class="fas fa-scarf"></i>Зберігання речей</li>
+                            <li class="subcategory-item"><i class="fas fa-hat-cowboy"></i>Ремонт та інструменти</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="clothing">
+                    <div class="category-header">
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Кухня</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>
+                    </div>
+                    <div class="subcategories-container">
+                        <div class="back-button" data-back="clothing">
+                            <i class="fas fa-arrow-left"></i> Назад
+                        </div>
+                        <ul class="subcategories" id="clothingSub">
+                            <li class="subcategory-item"><i class="fas fa-male"></i>Посуд</li>
+                            <li class="subcategory-item"><i class="fas fa-female"></i>Техніка для кухні</li>
+                            <li class="subcategory-item"><i class="fas fa-child"></i>Текстиль для кухні</li>
+                            <li class="subcategory-item"><i class="fas fa-shoe-prints"></i>Зберігання продуктів</li>
+                            <li class="subcategory-item"><i class="fas fa-scarf"></i>Набори для сервірування</li>
+                            <li class="subcategory-item"><i class="fas fa-hat-cowboy"></i>Кухонні гаджети</li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="category-item" data-category="home">
+                    <div class="category-header">
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Дім і сад</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="home">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1276,9 +1329,9 @@
 
                 <li class="category-item" data-category="auto">
                     <div class="category-header">
-                        <span><i class="fas fa-car category-icon"></i>Автотовари</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Автотовари</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="auto">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1298,9 +1351,9 @@
 
                 <li class="category-item" data-category="kids">
                     <div class="category-header">
-                        <span><i class="fas fa-baby category-icon"></i>Дитячі товари</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Дитячі товари</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="kids">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1320,9 +1373,9 @@
 
                 <li class="category-item" data-category="sports">
                     <div class="category-header">
-                        <span><i class="fas fa-running category-icon"></i>Спорт та відпочинок</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Спорт та відпочинок</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="sports">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1342,9 +1395,9 @@
 
                 <li class="category-item" data-category="books">
                     <div class="category-header">
-                        <span><i class="fas fa-book category-icon"></i>Книги та канцелярія</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Книги та канцелярія</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="books">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1363,9 +1416,9 @@
 
                 <li class="category-item" data-category="beauty">
                     <div class="category-header">
-                        <span><i class="fas fa-spa category-icon"></i>Краса та здоров'я</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Краса та Догляд</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="beauty">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1383,32 +1436,11 @@
                     </div>
                 </li>
 
-                <li class="category-item" data-category="food">
-                    <div class="category-header">
-                        <span><i class="fas fa-utensils category-icon"></i>Продукти харчування</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
-                    <div class="subcategories-container">
-                        <div class="back-button" data-back="food">
-                            <i class="fas fa-arrow-left"></i> Назад
-                        </div>
-                        <ul class="subcategories" id="foodSub">
-                            <li class="subcategory-item"><i class="fas fa-wine-bottle"></i>Напої</li>
-                            <li class="subcategory-item"><i class="fas fa-cheese"></i>Молочні продукти</li>
-                            <li class="subcategory-item"><i class="fas fa-bread-slice"></i>Хлібобулочні вироби</li>
-                            <li class="subcategory-item"><i class="fas fa-drumstick-bite"></i>М'ясні продукти</li>
-                            <li class="subcategory-item"><i class="fas fa-fish"></i>Рибні продукти</li>
-                            <li class="subcategory-item"><i class="fas fa-apple-alt"></i>Фрукти та овочі</li>
-                            <li class="subcategory-item"><i class="fas fa-ice-cream"></i>Солодощі</li>
-                        </ul>
-                    </div>
-                </li>
-
                 <li class="category-item" data-category="pets">
                     <div class="category-header">
-                        <span><i class="fas fa-paw category-icon"></i>Товари для тварин</span>
-                        <i class="fas fa-chevron-right arrow-icon"></i>
-                    </div>
+                        <span class="category-icon"><i class="fas fa-mobile-alt"></i></span>
+                        <span class="category-title">Товари для тварин</span>
+                        <i class="fas fa-chevron-right arrow-icon"></i>              </div>
                     <div class="subcategories-container">
                         <div class="back-button" data-back="pets">
                             <i class="fas fa-arrow-left"></i> Назад
@@ -1932,6 +1964,7 @@
             const sidebar = document.getElementById('sidebar');
             const sidebarOverlay = document.getElementById('sidebarOverlay');
             const closeSidebar = document.getElementById('closeSidebar');
+            const subcategoryContainers = document.querySelectorAll('.subcategories-container');
 
             burgerMenu.addEventListener('click', () => {
                 sidebar.classList.add('active');
@@ -1943,12 +1976,28 @@
                 sidebar.classList.remove('active');
                 sidebarOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+
+                // Закрити підкатегорії
+                subcategoryContainers.forEach(container => {
+                    container.classList.remove('active');
+                });
             });
 
             sidebarOverlay.addEventListener('click', () => {
                 sidebar.classList.remove('active');
                 sidebarOverlay.classList.remove('active');
                 document.body.style.overflow = '';
+
+                // Закрити підкатегорії
+                subcategoryContainers.forEach(container => {
+                    container.classList.remove('active');
+                });
+
+            });
+
+            // Закрити підкатегорії
+            subcategoryContainers.forEach(container => {
+                container.classList.remove('active');
             });
 
             // Модальні вікна
