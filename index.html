@@ -1167,7 +1167,7 @@
     </div>
 
     <!-- Основний хедер -->
-    <header class="main-header">
+    <header class="main-header" id="mainHeader">
         <div class="header-left">
             <div class="burger-menu" id="burgerMenu">
                 <i class="fas fa-bars"></i>
@@ -1967,10 +1967,17 @@
             const subcategoryContainers = document.querySelectorAll('.subcategories-container');
 
             burgerMenu.addEventListener('click', () => {
+                const header = document.getElementById('mainHeader');
+                const headerHeight = header.offsetHeight;
+
+                sidebar.style.top = headerHeight + 'px';
+                sidebar.style.height = `calc(100vh - ${headerHeight}px)`; // Щоб меню не вилазило за межі
                 sidebar.classList.add('active');
+
                 sidebarOverlay.classList.add('active');
                 document.body.style.overflow = 'hidden';
             });
+
 
             closeSidebar.addEventListener('click', () => {
                 sidebar.classList.remove('active');
