@@ -719,16 +719,16 @@
 
          /* Стили кнопки */
   #chat-widget {
-    position: absolute;
-    bottom: 350px;
-    right: 54px;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
     height: 84px;
     padding: 8px 16px;
-    background: white;
+    background: rgba(233, 147, 8, 0.526);
     border-radius: 42px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     cursor: default;
-    z-index: 1000;
+    z-index: 99999;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -753,59 +753,45 @@
     cursor: pointer;
   }
 
-  /* Модальне вікно */
-  .chat-modal {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    display: none;
-    background: rgba(0,0,0,0.5);
-    z-index: 2000;
-    align-items: center;
-    justify-content: center;
-  }
-  .chat-modal-content {
-    background: white;
-    padding: 24px;
-    border-radius: 16px;
-    width: 320px;
-    position: relative;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-  }
-  .chat-modal-content h3 {
-    margin-top: 0;
-    font-size: 20px;
-  }
-  .chat-modal-content textarea {
-    width: 100%;
-    height: 100px;
-    resize: none;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 8px;
-    margin: 12px 0;
-    font-size: 14px;
-  }
-  .chat-modal-content .chat-send {
-    background: #ffb700;
-    color: white;
-    border: none;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-  }
-  .chat-modal-content .chat-close {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: #888;
-    cursor: pointer;
-  }
+ /* Popup-вікно чату */
+ #chat-popup {
+      position: fixed;
+      bottom: 90px; /* трохи над кнопкою */
+      right: 30px;
+      width: 280px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 999;
+    }
 
+    .chat-popup-inner {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .chat-popup-inner textarea {
+      width: 100%;
+      height: 80px;
+      resize: none;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    #chat-send {
+      background: #ffb700;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
 
         /* Футер (зменшена висота) */
@@ -2016,13 +2002,15 @@
             </div>
         </div>
     </div>
-    <div id="chat-modal" class="chat-modal">
-        <div class="chat-modal-content">
-            <button class="chat-close">&times;</button>
-            <h3>Жираф-чат</h3>
+    <!-- Кнопка чату -->
+    <!-- Popup-вікно чату -->
+    <div id="chat-popup" class="chat-popup">
+        <div class="chat-popup-inner">
+            <strong>Жираф-чат</strong>
             <textarea placeholder="Ваше повідомлення..."></textarea>
-            <button class="chat-send">Надіслати</button>
+            <button id="chat-send">Надіслати</button>
         </div>
+    </div>
 
 
     <script>
@@ -2392,18 +2380,21 @@
                  renderer: 'svg',
                  loop: true,
                  autoplay: true,
-                 path: 'animations/Animation - 1751650909158.json'
+                 path: 'animations/Animation - 1751889554813.json'
              });
+Images/vector-chat-icon-png_302635.jpg
+              // Елементи
+             const chatPopup = document.getElementById('chat-popup');
+             const lottieContainer = document.getElementById('chat-lottie');
 
-             // Елементи модалки
-             const chatModal = document.getElementById('chat-modal');
-             const chatClose = document.querySelector('.chat-close');
-
-             // Відкриття модалки — при кліку на анімацію
-             document.getElementById('chat-lottie').addEventListener('click', () => {
-                 chatModal.style.display = 'flex';
+             // Клік по анімації відкриває/закриває чат
+             lottieContainer.addEventListener('click', () => {
+                 if (chatPopup.style.display === 'none' || chatPopup.style.display === '') {
+                     chatPopup.style.display = 'block';
+                 } else {
+                     chatPopup.style.display = 'none';
+                 }
              });
-
              // Закриття модалки кнопкою "×"
              chatClose.addEventListener('click', () => {
                  chatModal.style.display = 'none';
@@ -2414,10 +2405,7 @@
                  if (e.target === chatModal) {
                      chatModal.style.display = 'none';
                  }
-             });
-                 
-           
-             
+             });   
 
         });
     </script>
