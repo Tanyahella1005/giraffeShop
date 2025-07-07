@@ -405,31 +405,30 @@
 
         /* Банер */
         .banner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  padding: 40px 10%;
-  background: linear-gradient(135deg, var(--primary), var(--primary-light));
-  color: white;
-  border-radius: var(--radius);
-  margin-bottom: 24px;
-  overflow: hidden;
-  flex-wrap: wrap; /* для адаптиву */
-  min-height: 300px;
-  text-align: center;
-}
-
-
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+            padding: 40px 10%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: white;
+            margin-bottom: 24px;
+            overflow: hidden;
+            min-height: 300px;
+            box-sizing: border-box;
+        }
         .banner::before {
             content: "";
             position: absolute;
             top: -50px;
-            right: -50px;
+            left: -50px;
             width: 200px;
             height: 200px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
+            animation: pulse-left 4s ease-in-out infinite alternate;
         }
 
         .banner::after {
@@ -443,20 +442,37 @@
             border-radius: 50%;
         }
 
+        @keyframes pulse-left {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.2;
+            }
+        }
+
         .banner-text {
-    position: relative;
-    z-index: 1;
-    max-width: 60%;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            text-align: center;
+        }
 
-    display: flex;                 /* Додаємо флекс */
-    flex-direction: column;       /* Розміщуємо елементи вертикально */
-    align-items: center;          /* Центруємо по горизонталі */
-    justify-content: center;      /* Центруємо по вертикалі */
-    gap: 16px;                    /* Відступи між h1, p, кнопкою */
-    text-align: center;           /* Вирівнюємо текст */
-}
-
-
+        .banner-image {
+            position: absolute;
+            right: 5%;
+            z-index: 1;
+            width: 300px;
+            height: 200px;
+        }
         .add-ad-btn {
             padding: 12px 24px;
             background: white;
@@ -473,13 +489,6 @@
         .add-ad-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-        }
-
-        .banner-image {
-            position: relative;
-            z-index: 1;
-            width: 300px;
-            height: 200px;
         }
 
         #banner-animation {
@@ -1427,7 +1436,7 @@
 
     <!-- Головний контент -->
     <div class="container">
-        <!-- Банер -->
+        <!-- Оновлений банер -->
         <section class="banner">
             <div class="banner-text">
                 <h1>Почни заробляти вже зараз!</h1>
@@ -1438,7 +1447,6 @@
                 <div id="banner-animation"></div>
             </div>
         </section>
-          
 
         <!-- Секція "Тебе зацікавлять" (на всю ширину) -->
         <section class="full-width-section">
@@ -1876,15 +1884,35 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Завантаження анімації для банера
-            const bannerAnimation = lottie.loadAnimation({
-                container: document.getElementById('banner-animation'),
-                renderer: 'svg',
-                loop: true,
-                autoplay: true,
-                path: 'animations/Animation - 1751649172192.json'
-            });
+         document.addEventListener('DOMContentLoaded', function () {
+                // Завантаження правої анімації для банера
+                const rightBannerAnimation = lottie.loadAnimation({
+                    container: document.getElementById('banner-animation'),
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: 'animations/Animation - 1751649172192.json'
+                });
+
+                // Додаємо новий контейнер для лівої анімації
+                const banner = document.querySelector('.banner');
+                const leftAnimationContainer = document.createElement('div');
+                leftAnimationContainer.id = 'left-banner-animation';
+                leftAnimationContainer.style.position = 'absolute';
+                leftAnimationContainer.style.left = '5%';
+                leftAnimationContainer.style.zIndex = '1';
+                leftAnimationContainer.style.width = '300px';
+                leftAnimationContainer.style.height = '200px';
+                banner.prepend(leftAnimationContainer);
+
+                // Завантаження лівої анімації
+                const leftBannerAnimation = lottie.loadAnimation({
+                    container: document.getElementById('left-banner-animation'),
+                    renderer: 'svg',
+                    loop: true,
+                    autoplay: true,
+                    path: 'animations/Animation - 1751648947782.json'
+                });
 
             // Створення анімації листочків
             function createLeaves() {
