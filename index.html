@@ -86,7 +86,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0%;
+            padding: 0% 70px;
             background: var(--light);
             box-shadow: var(--shadow);
             position: sticky;
@@ -100,24 +100,27 @@
         .header-right {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 25px;
         }
 
         .burger-menu {
-            font-size: 20px;
+            font-size: 25px;
             cursor: pointer;
             color: var(--dark);
             z-index: 1001;
+            margin-left: 24px; /* ➕ зсув окремо для бургер-меню */
         }
 
         .logo {
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 800;
+  font-size: 70px;
   color: var(--primary);
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 15px;
   z-index: 1001;
+  margin-left: 82px; /* або більше */
+  letter-spacing: 1px;
 }
 
 .logo-animation {
@@ -133,14 +136,14 @@
 .logo span {
   color: #FF6B00;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 40px;
   margin-left: 8px;
 }
 
 
 .search-bar {
     position: relative;
-    width:600px; /* Збільшена ширина */
+    width:700px; /* Збільшена ширина */
     max-width: 100%;
     margin: 0 20px; /* Відступи з боків */
 }
@@ -164,11 +167,11 @@
 
 .search-bar button {
     position: absolute;
-    right: 15px;
+    right: 3px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
+    background:  #efae0bc9;
+    border: 2px solid #efc91d; /* товщина і колір рамки */
     color: var(--primary);
     cursor: pointer;
     font-size: 18px;
@@ -186,13 +189,18 @@
 }
 @media (max-width: 768px) {
     .search-bar {
-        width: 100%;
+        width: 200%;
         margin: 10px 0;
     }
     .search-bar input {
-        padding: 10px 15px;
-        font-size: 14px;
-    }
+    width: 100%;
+    padding: 10px 48px 10px 16px;
+    font-size: 16px;
+    border: 2px solid #edde70; /* товщина і колір рамки */
+    border-radius: 24px;
+    outline: none;
+}
+
 }
 
         .location {
