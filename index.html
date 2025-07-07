@@ -144,38 +144,62 @@
     margin-left: 8px;
 }
 
-        .search-bar {
-            position: relative;
-            width: 350px;
-            max-width: 100%;
-        }
+.search-bar {
+    position: relative;
+    width:600px; /* Збільшена ширина */
+    max-width: 100%;
+    margin: 0 20px; /* Відступи з боків */
+}
 
-        .search-bar input {
-            width: 100%;
-            padding: 10px 16px;
-            border: 1px solid #e0e0e0;
-            border-radius: 24px;
-            font-size: 14px;
-            padding-right: 40px;
-            transition: all 0.3s;
-        }
+.search-bar input {
+    width: 100%;
+    padding: 12px 20px; /* Збільшені відступи */
+    border: 2px solid #e0e0e0; /* Товщина рамки */
+    border-radius: 30px; /* Округлені кути */
+    font-size: 16px; /* Розмір тексту */
+    padding-right: 50px;
+    transition: all 0.3s;
+    height: 48px; /* Фіксована висота */
+}
 
-        .search-bar input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(255, 107, 0, 0.2);
-        }
+.search-bar input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.2);
+    outline: none;
+}
 
-        .search-bar button {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: var(--primary);
-            cursor: pointer;
-        }
+.search-bar button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.search-bar button:hover {
+    background: rgba(255, 107, 0, 0.1);
+}
+@media (max-width: 768px) {
+    .search-bar {
+        width: 100%;
+        margin: 10px 0;
+    }
+    .search-bar input {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+}
 
         .location {
             display: flex;
@@ -1636,10 +1660,6 @@
         </section>
     </div>
 
-    <!-- Жираф над футером -->
-    <div class="giraffe-footer">
-        <img src="Images/giraffe-grass-field-transparent-background_1308-76861.avif" alt="Жираф">
-    </div>
 
     <!-- Футер -->
     <footer>
