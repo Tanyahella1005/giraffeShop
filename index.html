@@ -39,35 +39,19 @@
         }
 
         body {
-            background: var(--gray);
-            color: var(--dark);
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        /* Анімація листочків */
-        .leaf {
-            position: absolute;
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: -1;
-            opacity: 0.6;
-            animation: falling linear infinite;
-        }
-
-        @keyframes falling {
-            0% {
-                transform: translate(0, -10vh) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(calc(var(--random-x) * 10vw), 100vh) rotate(360deg);
-            }
-        }
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(45deg, #fff9c4, #ffe4e1); 
+  color: #222; /* колір тексту */
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  scroll-behavior: smooth; /* плавна прокрутка */
+}
 
         /* Жираф над футером */
         .giraffe-footer {
@@ -102,14 +86,16 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 5%;
+            padding: 0%;
             background: var(--light);
             box-shadow: var(--shadow);
             position: sticky;
             top: 0;
             z-index: 1000;
+            margin-bottom: 0;    /* прибираємо відступ знизу */
+            padding-bottom: 0;   /* прибираємо паддінг знизу */
         }
-
+        
         .header-left,
         .header-right {
             display: flex;
@@ -456,14 +442,16 @@
     align-items: center;
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    padding: 40px 10%;
+    padding: 40px  10%;
     background: linear-gradient(135deg, #FFA500, #FFD700); /* Оранжево-жовтий градієнт */
-    color: white; /* Білий колір тексту для контрасту */
-    margin-bottom: 24px;
+    color: rgb(65, 41, 6); /* Білий колір тексту для контрасту */
+    margin-bottom: 0px;
+    margin-top: 0;
     overflow: hidden;
-    min-height: 300px;
+    min-height: 200px;
     box-sizing: border-box;
 }
+
 
 .banner::before {
     content: "";
@@ -471,7 +459,7 @@
     top: -50px;
     left: -50px;
     width: 200px;
-    height: 200px;
+    height: 100px;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 50%;
     animation: pulse-left 4s ease-in-out infinite alternate;
@@ -537,8 +525,8 @@
 
         .add-ad-btn {
             padding: 12px 24px;
-            background: white;
-            color: var(--primary);
+            background: rgb(43, 25, 2);
+            color: #FFD700; /* золотий */
             border: none;
             border-radius: 24px;
             font-weight: 600;
@@ -559,25 +547,39 @@
         }
 
         /* Секції */
-        .section {
-            background: var(--light);
-            border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: var(--shadow);
-        }
 
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-            color: var(--dark);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .section {
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.section * {
+  margin: 0 !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+   
+.section + .section {
+  margin-top: 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 0; /* прибираємо відступ знизу */
+  color: var(--dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0; /* прибираємо падінги, якщо є */
+}
+
 
         .section-title a {
-            font-size: 14px;
+            font-size: 24px;
             color: var(--primary);
             text-decoration: none;
             font-weight: 500;
@@ -913,12 +915,13 @@
 
         /* Спеціальні блоки */
         .full-width-section {
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-            padding: 24px 5%;
-            background: var(--light);
-            margin-bottom: 24px;
-        }
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
 
         .full-width-section .section-title {
             max-width: 1200px;
