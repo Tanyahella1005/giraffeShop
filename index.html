@@ -5,9 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giraffy</title>
+    
+    <!-- Іконки -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Стилі -->
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <!-- Чат-іконка -->
+    <div id="chat-widget" title="Відкрити чат"></div>
+    
+    <!-- Lottie Web для анімацій -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
 
 </head>
@@ -117,32 +124,32 @@
         }
 
         .logo {
-            font-weight: 700;
-            font-size: 24px;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            z-index: 1001;
-        }
-
-        .logo img {
-    height: 52px; /* або інший розмір за потребою */
-    width: auto;
-    transition: transform 0.3s ease;
+  font-weight: 700;
+  font-size: 24px;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 1001;
 }
 
-.logo img:hover {
-    transform: scale(1.1); /* Ефект при наведенні */
+.logo-animation {
+  width: 82px;
+  height: 82px;
+  transition: transform 0.3s ease;
 }
 
-/* Якщо потрібно змінити колір тексту логотипу */
+.logo-animation:hover {
+  transform: scale(1.1);
+}
+
 .logo span {
-    color: #FF6B00; /* Оранжевий колір - змініть на потрібний */
-    font-weight: 700;
-    font-size: 24px;
-    margin-left: 8px;
+  color: #FF6B00;
+  font-weight: 700;
+  font-size: 24px;
+  margin-left: 8px;
 }
+
 
 .search-bar {
     position: relative;
@@ -709,6 +716,18 @@
             color: var(--primary);
         }
 
+        #chat-widget {
+  position: fixed;
+  bottom: 350px; /* відступ від низу */
+  right: 54px;  /* відступ від правого краю */
+  width: 84px;  /* ширина блоку з анімацією */
+  height: 84px; /* висота блоку */
+  cursor: pointer;
+  z-index: 1000; /* над усім іншим */
+  background: transparent; /* прозорий фон */
+}
+
+
         /* Футер (зменшена висота) */
         footer {
             background: var(--dark);
@@ -1188,7 +1207,7 @@
             </div>
 
             <div class="logo">
-                <img src="Images/images (1).jpg" alt="Жираф">
+                <div id="logo-animation" class="logo-animation"></div>
                 <span>Giraffy</span>
             </div>
         </div>
@@ -1919,6 +1938,18 @@
     </div>
 
     <script>
+        //Лого
+    document.addEventListener('DOMContentLoaded', () => {
+        lottie.loadAnimation({
+            container: document.getElementById('logo-animation'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: 'animations/Animation - 1751889128007.json' // або перейменуй на logo.json
+        });
+    });
+
+        
          document.addEventListener('DOMContentLoaded', function () {
                 // Завантаження правої анімації для банера
                 const rightBannerAnimation = lottie.loadAnimation({
@@ -2266,6 +2297,13 @@
                     alert(`Товар "${title}" додано до обраного`);
                 });
             });
+            lottie.loadAnimation({
+                 container: document.getElementById('chat-widget'),
+                 renderer: 'svg',
+                 loop: true,
+                 autoplay: true,
+                 path: 'animations/Animation - 1751889554813.json'
+             });
         });
     </script>
 </body>
