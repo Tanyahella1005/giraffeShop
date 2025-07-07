@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
+
 </head>
 <body>
     <style>
@@ -380,7 +382,7 @@
         }
 
         .back-button {
-            display: flex;
+            display:  none;
             align-items: center;
             padding: 12px 16px;
             background: var(--gray);
@@ -403,18 +405,21 @@
 
         /* Банер */
         .banner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 5%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            margin-bottom: 24px;
-            position: relative;
-            overflow: hidden;
-            width: 100vw;
-            margin-left: calc(-50vw + 50%);
-        }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 40px 10%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  border-radius: var(--radius);
+  margin-bottom: 24px;
+  overflow: hidden;
+  flex-wrap: wrap; /* для адаптиву */
+  min-height: 300px;
+  text-align: center;
+}
+
 
         .banner::before {
             content: "";
@@ -439,22 +444,18 @@
         }
 
         .banner-text {
-            position: relative;
-            z-index: 1;
-            max-width: 60%;
-        }
+    position: relative;
+    z-index: 1;
+    max-width: 60%;
 
-        .banner-text h1 {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            font-weight: 700;
-        }
+    display: flex;                 /* Додаємо флекс */
+    flex-direction: column;       /* Розміщуємо елементи вертикально */
+    align-items: center;          /* Центруємо по горизонталі */
+    justify-content: center;      /* Центруємо по вертикалі */
+    gap: 16px;                    /* Відступи між h1, p, кнопкою */
+    text-align: center;           /* Вирівнюємо текст */
+}
 
-        .banner-text p {
-            margin-bottom: 20px;
-            font-size: 16px;
-            opacity: 0.9;
-        }
 
         .add-ad-btn {
             padding: 12px 24px;
@@ -1437,6 +1438,7 @@
                 <div id="banner-animation"></div>
             </div>
         </section>
+          
 
         <!-- Секція "Тебе зацікавлять" (на всю ширину) -->
         <section class="full-width-section">
@@ -1933,18 +1935,36 @@
             const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 
             burgerMenu.addEventListener('click', () => {
+                const isOpen = sidebar.classList.contains('active');
                 const header = document.getElementById('mainHeader');
                 const headerHeight = header.offsetHeight;
 
-                sidebar.style.top = headerHeight + 'px';
-                sidebar.style.height = `calc(100vh - ${headerHeight}px)`; // Щоб меню не вилазило за межі
-                sidebar.classList.add('active');
+                if (isOpen) {
+                    sidebar.classList.remove('active');
+                    sidebarOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
+                    document.body.style.paddingRight = '';
 
-                sidebarOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                document.body.style.paddingRight = scrollBarWidth + 'px'; // компенсація відсутності скролу
+                    // Закрити підкатегорії
+                    subcategoryContainers.forEach(container => {
+                        container.classList.remove('active');
+                    });
+
+                    // Зняти активні стрілочки
+                    const categoryItems = document.querySelectorAll('.category-item');
+                    categoryItems.forEach(item => {
+                        item.classList.remove('active');
+                    });
+
+                } else {
+                    sidebar.style.top = headerHeight + 'px';
+                    sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
+                    sidebar.classList.add('active');
+                    sidebarOverlay.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    document.body.style.paddingRight = scrollBarWidth + 'px';
+                }
             });
-
 
             closeSidebar.addEventListener('click', () => {
                 sidebar.classList.remove('active');
@@ -1955,6 +1975,12 @@
                 // Закрити підкатегорії
                 subcategoryContainers.forEach(container => {
                     container.classList.remove('active');
+                });
+
+                // Зняти активні стрілочки
+                const categoryItems = document.querySelectorAll('.category-item');
+                categoryItems.forEach(item => {
+                    item.classList.remove('active');
                 });
             });
 
@@ -1967,6 +1993,12 @@
                 // Закрити підкатегорії
                 subcategoryContainers.forEach(container => {
                     container.classList.remove('active');
+                });
+
+                // Зняти активні стрілочки
+                const categoryItems = document.querySelectorAll('.category-item');
+                categoryItems.forEach(item => {
+                    item.classList.remove('active');
                 });
 
             });
