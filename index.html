@@ -12,8 +12,9 @@
     <!-- Стилі -->
     <link rel="stylesheet" href="css/styles.css">
     <!-- Чат-іконка -->
-    <div id="chat-widget" title="Відкрити чат"></div>
-    
+    <div id="chat-widget" title="Відкрити чат">
+        <div class="chat-static">💬</div> <!-- звичайна іконка -->
+        <div id="chat-lottie" class="chat-lottie"></div> <!-- анімація --></div>
     <!-- Lottie Web для анімацій -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
 
@@ -717,15 +718,52 @@
         }
 
         #chat-widget {
-  position: fixed;
-  bottom: 350px; /* відступ від низу */
-  right: 54px;  /* відступ від правого краю */
-  width: 84px;  /* ширина блоку з анімацією */
-  height: 84px; /* висота блоку */
+  position: absolute; /* або fixed */
+  bottom: 350px;
+  right: 54px;
+  width: 84px;
+  height: 84px;
   cursor: pointer;
-  z-index: 1000; /* над усім іншим */
-  background: transparent; /* прозорий фон */
+  z-index: 1000;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* ВАЖЛИВО: приховує все зайве */
 }
+
+.chat-static {
+  font-size: 36px;
+  transition: opacity 0.3s;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 84px;
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat-lottie {
+  width: 84px;
+  height: 84px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+#chat-widget:hover .chat-static {
+  opacity: 0;
+}
+
+#chat-widget:hover .chat-lottie {
+  opacity: 1;
+}
+
 
 
         /* Футер (зменшена висота) */
@@ -2299,11 +2337,16 @@
             });
             lottie.loadAnimation({
                  container: document.getElementById('chat-widget'),
+                 
                  renderer: 'svg',
                  loop: true,
                  autoplay: true,
-                 path: 'animations/Animation - 1751889554813.json'
+                 path: 'animations/Animation - 1751650909158.json'
+
+                 
              });
+             
+
         });
     </script>
 </body>
