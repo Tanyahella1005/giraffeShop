@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <!-- Чат-іконка -->
     <div id="chat-widget" title="Відкрити чат">
-        <div class="chat-static">💬</div> <!-- звичайна іконка -->
+        
         <div id="chat-lottie" class="chat-lottie"></div> <!-- анімація --></div>
     <!-- Lottie Web для анімацій -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.0/lottie.min.js"></script>
@@ -717,52 +717,94 @@
             color: var(--primary);
         }
 
-        #chat-widget {
-  position: absolute; /* або fixed */
-  bottom: 350px;
-  right: 54px;
-  width: 84px;
-  height: 84px;
-  cursor: pointer;
-  z-index: 1000;
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden; /* ВАЖЛИВО: приховує все зайве */
-}
+         /* Стили кнопки */
+  #chat-widget {
+    position: absolute;
+    bottom: 350px;
+    right: 54px;
+    height: 84px;
+    padding: 8px 16px;
+    background: white;
+    border-radius: 42px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    cursor: default;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: sans-serif;
+    transition: transform 0.3s;
+  }
+  #chat-widget:hover {
+    transform: scale(1.05);
+  }
+  .chat-icon {
+    width: 36px;
+    height: 36px;
+  }
+  .chat-text {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+  }
+  .chat-lottie {
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+  }
 
-.chat-static {
-  font-size: 36px;
-  transition: opacity 0.3s;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 84px;
-  height: 84px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.chat-lottie {
-  width: 84px;
-  height: 84px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-}
-
-#chat-widget:hover .chat-static {
-  opacity: 0;
-}
-
-#chat-widget:hover .chat-lottie {
-  opacity: 1;
-}
+  /* Модальне вікно */
+  .chat-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    z-index: 2000;
+    align-items: center;
+    justify-content: center;
+  }
+  .chat-modal-content {
+    background: white;
+    padding: 24px;
+    border-radius: 16px;
+    width: 320px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+  .chat-modal-content h3 {
+    margin-top: 0;
+    font-size: 20px;
+  }
+  .chat-modal-content textarea {
+    width: 100%;
+    height: 100px;
+    resize: none;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .chat-modal-content .chat-send {
+    background: #ffb700;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .chat-modal-content .chat-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #888;
+    cursor: pointer;
+  }
 
 
 
@@ -1974,8 +2016,17 @@
             </div>
         </div>
     </div>
+    <div id="chat-modal" class="chat-modal">
+        <div class="chat-modal-content">
+            <button class="chat-close">&times;</button>
+            <h3>Жираф-чат</h3>
+            <textarea placeholder="Ваше повідомлення..."></textarea>
+            <button class="chat-send">Надіслати</button>
+        </div>
+
 
     <script>
+        
         //Лого
     document.addEventListener('DOMContentLoaded', () => {
         lottie.loadAnimation({
@@ -2335,16 +2386,37 @@
                     alert(`Товар "${title}" додано до обраного`);
                 });
             });
-            lottie.loadAnimation({
-                 container: document.getElementById('chat-widget'),
-                 
+           // Завантажуємо анімацію саме сюди
+             const chatLottie = lottie.loadAnimation({
+                 container: document.getElementById('chat-lottie'),
                  renderer: 'svg',
                  loop: true,
                  autoplay: true,
                  path: 'animations/Animation - 1751650909158.json'
-
-                 
              });
+
+             // Елементи модалки
+             const chatModal = document.getElementById('chat-modal');
+             const chatClose = document.querySelector('.chat-close');
+
+             // Відкриття модалки — при кліку на анімацію
+             document.getElementById('chat-lottie').addEventListener('click', () => {
+                 chatModal.style.display = 'flex';
+             });
+
+             // Закриття модалки кнопкою "×"
+             chatClose.addEventListener('click', () => {
+                 chatModal.style.display = 'none';
+             });
+
+             // Закриття модалки кліком поза вікном
+             chatModal.addEventListener('click', (e) => {
+                 if (e.target === chatModal) {
+                     chatModal.style.display = 'none';
+                 }
+             });
+                 
+           
              
 
         });
