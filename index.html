@@ -521,11 +521,20 @@
 
         .banner-image {
             position: absolute;
-            right: 5%;
+            right: 15%;
             z-index: 1;
             width: 300px;
             height: 200px;
         }
+        .banner-left-image {
+    position: absolute;
+    left: 15%;
+    bottom: 0;
+    z-index: 1;
+    width: 300px;
+    height: 200px;
+}
+
         .add-ad-btn {
             padding: 12px 24px;
             background: white;
@@ -1569,11 +1578,16 @@
     <div class="container">
         <!-- Оновлений банер -->
         <section class="banner">
+            <!-- Ліва анімація -->
+            <div class="banner-left-image">
+                <div id="left-banner-animation"></div>
+            </div>
             <div class="banner-text">
                 <h1>Почни заробляти вже зараз!</h1>
                 <p>Оголошення швидко та надійно</p>
                 <button class="add-ad-btn" id="addAdBtn">Додати оголошення</button>
             </div>
+            <!-- Права анімація -->
             <div class="banner-image">
                 <div id="banner-animation"></div>
             </div>
@@ -2049,7 +2063,7 @@
                 const leftAnimationContainer = document.createElement('div');
                 leftAnimationContainer.id = 'left-banner-animation';
                 leftAnimationContainer.style.position = 'absolute';
-                leftAnimationContainer.style.left = '5%';
+                leftAnimationContainer.style.left = '15%';
                 leftAnimationContainer.style.zIndex = '1';
                 leftAnimationContainer.style.width = '300px';
                 leftAnimationContainer.style.height = '200px';
