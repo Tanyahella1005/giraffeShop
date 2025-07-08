@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Футер внизу сторінки</title>
+   
     <title>Giraffy</title>
 
     <!-- Іконки -->
@@ -326,6 +326,84 @@
             align-items: center;
             justify-content: center;
         }
+
+        .help-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.help-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #e74c3c;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.help-dropdown {
+  display: none;
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 1000;
+  min-width: 260px;
+}
+
+.help-dropdown ul {
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+}
+
+.help-dropdown li {
+  padding: 10px 14px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s;
+  line-height: 1.2;
+}
+
+.help-dropdown li:hover {
+  background: #f2f2f2;
+}
+
+.help-dropdown .separator {
+  border-top: 1px solid #ddd;
+  margin: 6px 0;
+  padding: 0;
+  height: 0;
+}
+
+.help-dropdown small {
+  display: block;
+  font-size: 12px;
+  color: #777;
+  margin-left: 26px;
+}
+
+.help-toggle.active + .help-dropdown {
+  display: block;
+}
+
+/* Кольори іконок */
+.green { color: #2ecc71; }
+.orange { color: #f39c12; }
+.blue { color: #0078FF; }
+.purple { color: #8e44ad; }
+.sky { color: #00bcd4; }
+
 
         /* Бічне меню */
         .sidebar-overlay {
@@ -1425,6 +1503,35 @@
                     </div>
                 </div>
             </div>
+
+            <div class="help-menu-wrapper">
+                <button class="help-toggle">
+                    <i class="fas fa-phone-alt"></i> <span>Допомога</span>
+                </button>
+                <div class="help-dropdown">
+                    <ul>
+                        <li><i class="fas fa-question-circle green"></i> <span>Центр допомоги</span></li>
+                        <li><i class="fas fa-comments orange"></i> <span>Чат на сайті</span></li>
+                        <li><i class="fab fa-facebook-messenger blue"></i> <a href=""
+                                target="_blank">Messenger</a></li>
+                        <li><i class="fab fa-viber purple"></i> <a href="">Viber</a></li>
+                        <li><i class="fab fa-telegram-plane sky"></i> <a href="
+                            " target="_blank">Telegram</a>
+                        </li>
+                        <li class="separator"></li>
+                        <li><i class="fas fa-phone-volume orange"></i>
+                            <div>
+                                <div>0-800-303-505<br>0-800-600-506</div>
+                                <small>Безкоштовно по Україні</small>
+                            </div>
+                        </li>
+                        <li><i class="fas fa-phone-volume orange"></i>
+                            <div>
+                                <div>044-39-39-505</div>
+                                <small>Безкоштовно по Києву</small>
+                            </div>
+                        </li>
+                    </ul>        </div>
         </header>
 
         <!-- Бокове меню -->
@@ -2182,6 +2289,23 @@
                     path: 'animations/Animation - 1751889128007.json' // або перейменуй на logo.json
                 });
             });
+
+            
+                    const helpToggle = document.querySelector('.help-toggle');
+                    const helpDropdown = document.querySelector('.help-dropdown');
+
+  helpToggle.addEventListener('click', () => {
+                        helpToggle.classList.toggle('active');
+  });
+
+  // Закриття по кліку поза меню
+  document.addEventListener('click', (e) => {
+    if (!helpToggle.contains(e.target) && !helpDropdown.contains(e.target)) {
+                        helpToggle.classList.remove('active');
+    }
+  });
+            
+
 
 
             document.addEventListener('DOMContentLoaded', function () {
