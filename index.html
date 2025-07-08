@@ -94,7 +94,10 @@
             z-index: 1000;
             margin-bottom: 0;    /* прибираємо відступ знизу */
             padding-bottom: 0;   /* прибираємо паддінг знизу */
+           
+           
         }
+
         
         .header-left,
         .header-right {
@@ -217,6 +220,50 @@
         .location:hover {
             background: rgba(0, 0, 0, 0.05);
         }
+
+        .language-selector {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.lang-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+}
+
+.lang-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background-color: white;
+  list-style: none;
+  padding: 8px 0;
+  margin: 4px 0 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  display: none;
+  z-index: 1000;
+  width: 60px;
+}
+
+.lang-dropdown li {
+  padding: 6px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.lang-dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+.language-selector.open .lang-dropdown {
+  display: block;
+}
+
 
         .header-icons {
             display: flex;
@@ -1316,6 +1363,17 @@
                 <span>Київ</span>
             </div>
 
+            <!-- Вставляємо перемикач мови тут -->
+            <div class="header-actions">
+                <div class="language-selector">
+                    <button class="lang-btn" id="current-lang">UA ▼</button>
+                    <ul class="lang-dropdown" id="lang-dropdown">
+                        <li data-lang="ua">UA</li>
+                        <li data-lang="en">EN</li>
+                    </ul>
+                </div>
+                </div>
+
             <div class="header-icons">
                 <div class="icon-btn" id="wishlistBtn">
                     <i class="fas fa-heart"></i>
@@ -2059,6 +2117,34 @@
             path: 'animations/Animation - 1751889128007.json' // або перейменуй на logo.json
         });
     });
+
+     
+            const langBtn = document.getElementById('current-lang');
+            const langDropdown = document.getElementById('lang-dropdown');
+            const selector = document.querySelector('.language-selector');
+
+  langBtn.addEventListener('click', () => {
+                selector.classList.toggle('open');
+  });
+
+  langDropdown.querySelectorAll('li').forEach(item => {
+                item.addEventListener('click', () => {
+                    const selectedLang = item.getAttribute('data-lang');
+                    langBtn.textContent = item.textContent + ' ▼';
+                    selector.classList.remove('open');
+
+                    // ТУТ МОЖНА ДОДАТИ ЛОГІКУ ЗМІНИ МОВИ
+                    console.log('Мова змінена на:', selectedLang);
+                });
+  });
+
+  // Закриття при кліку поза меню
+  document.addEventListener('click', (e) => {
+    if (!selector.contains(e.target)) {
+                selector.classList.remove('open');
+    }
+  });
+    </script>
 
         
          document.addEventListener('DOMContentLoaded', function () {
