@@ -37,7 +37,8 @@
         html, body {
     height: 100%;
     margin: 0;
-  }
+    padding: 0;
+}
 
         * {
             margin: 0;
@@ -47,65 +48,29 @@
         }
 
         body {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(45deg, #fff9c4, #ffe4e1);
-            color: #222;
-            /* колір тексту */
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            /* плавна прокрутка */
-        }
-
-        /* Жираф над футером */
-        .giraffe-footer {
-            position: absolute;
-            right: 20px;
-            bottom: 180px;
-            z-index: 10;
-        }
-
-        .giraffe-footer img {
-            height: 150px;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-
-            100% {
-                transform: translateY(0);
-            }
-        }
+    background: linear-gradient(45deg, #fff9c4, #ffe4e1);
+    color: #222;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
 
         /* Хедер */
 
         .main-header {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0% 70px;
-            background: var(--light);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            margin-bottom: 0;
-            /* прибираємо відступ знизу */
-            padding-bottom: 0;
-            /* прибираємо паддінг знизу */
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 70px;
+    background: var(--light);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin-bottom: 0;
         }
 
         .header-left,
@@ -607,9 +572,34 @@
             margin-bottom: 0px;
             margin-top: 0;
             overflow: hidden;
-            min-height: 200px;
+            min-height: 300px; /* або більше */
+  height: 40vh; /* банер завжди буде займати 40% висоти вікна */
             box-sizing: border-box;
         }
+
+        .banner h1,
+.banner p {
+  margin: 0;
+}
+
+
+        @media (max-width: 768px) {
+  .banner {
+    height: auto;
+    min-height: 240px;
+    padding: 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-image,
+  .banner-left-image {
+    width: 180px;
+    height: auto;
+    position: static;
+    margin-top: 10px;
+  }
+}
 
 
         .banner::before {
@@ -1077,7 +1067,7 @@
             text-align: center;
             padding-top: 20px;
             margin-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(197, 136, 37, 0.1);
             font-size: 13px;
             opacity: 0.7;
             max-width: 1200px;
@@ -1404,22 +1394,7 @@
                 display: none;
             }
 
-            .banner {
-                flex-direction: column;
-                text-align: center;
-                padding: 30px 20px;
-            }
-
-            .banner-text {
-                max-width: 100%;
-                margin-bottom: 20px;
-            }
-
-            .banner-image {
-                width: 100%;
-                height: 180px;
-            }
-
+            
             .categories-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -1521,13 +1496,13 @@
                         <li class="separator"></li>
                         <li><i class="fas fa-phone-volume orange"></i>
                             <div>
-                                <div>0-800-303-505<br>0-800-600-506</div>
+                                <div>+380 12 345 6789<br>+380 12 345 6789</div>
                                 <small>Безкоштовно по Україні</small>
                             </div>
                         </li>
                         <li><i class="fas fa-phone-volume orange"></i>
                             <div>
-                                <div>044-39-39-505</div>
+                                <div>044-12-34-567</div>
                                 <small>Безкоштовно по Києву</small>
                             </div>
                         </li>
