@@ -1,4 +1,18 @@
 //Лого
+
+const helpToggle = document.querySelector('.help-toggle');
+const helpDropdown = document.querySelector('.help-dropdown');
+
+helpToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    helpToggle.classList.toggle('active');
+});
+
+document.addEventListener('click', () => {
+    helpToggle.classList.remove('active');
+});
+
+
 document.addEventListener('DOMContentLoaded', () => {
     lottie.loadAnimation({
         container: document.getElementById('logo-animation'),
@@ -8,23 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         path: 'animations/Animation - 1751889128007.json' // або перейменуй на logo.json
     });
 });
-
-
-const helpToggle = document.querySelector('.help-toggle');
-const helpDropdown = document.querySelector('.help-dropdown');
-
-helpToggle.addEventListener('click', () => {
-    helpToggle.classList.toggle('active');
-});
-
-// Закриття по кліку поза меню
-document.addEventListener('click', (e) => {
-    if (!helpToggle.contains(e.target) && !helpDropdown.contains(e.target)) {
-        helpToggle.classList.remove('active');
-    }
-});
-
-
 
 
 document.addEventListener('DOMContentLoaded', function () {
