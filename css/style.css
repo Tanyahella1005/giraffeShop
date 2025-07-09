@@ -293,24 +293,6 @@ body {
     background: rgba(255, 107, 0, 0.1);
 }
 
-@media (max-width: 768px) {
-    .search-bar {
-        width: 200%;
-        margin: 10px 0;
-    }
-
-    .search-bar input {
-        width: 100%;
-        padding: 10px 48px 10px 16px;
-        font-size: 16px;
-        border: 2px solid #edde70;
-        /* товщина і колір рамки */
-        border-radius: 24px;
-        outline: none;
-    }
-
-}
-
 .location {
     display: flex;
     align-items: center;
@@ -423,21 +405,6 @@ body {
     justify-content: center;
 }
 
-@media (max-width: 768px) {
-    .main-header {
-        padding: 12px 16px;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .main-header .logo {
-        font-size: 18px;
-    }
-
-    .header-icons {
-        gap: 10px;
-    }
-}
 
 /* Бічне меню */
 .sidebar-overlay {
@@ -502,28 +469,7 @@ body {
     cursor: pointer;
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        width: 100%;
-        left: -100%;
-        top: 60px;
-        /* зменшений хедер */
-    }
 
-    .sidebar.active {
-        left: 0;
-    }
-
-    .category-item {
-        font-size: 14px;
-        padding: 10px;
-    }
-
-    .subcategories-container {
-        padding: 10px;
-        font-size: 13px;
-    }
-}
 
 .categories {
     list-style: none;
@@ -574,20 +520,7 @@ body.menu-open {
     color: #333;
 }
 
-@media (max-width: 768px) {
-    .categories {
-        max-width: 100%;
-        overflow-x: hidden;
-    }
 
-    .category-header {
-        flex-wrap: wrap;
-    }
-
-    .category-title {
-        font-size: 14px;
-    }
-}
 
 .arrow-icon {
     font-size: 12px;
@@ -697,26 +630,6 @@ body.menu-open {
     margin: 0;
 }
 
-
-@media (max-width: 768px) {
-    .banner {
-        height: auto;
-        min-height: 240px;
-        padding: 20px;
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .banner-image,
-    .banner-left-image {
-        width: 180px;
-        height: auto;
-        position: static;
-        margin-top: 10px;
-    }
-}
-
-
 .banner::before {
     content: "";
     position: absolute;
@@ -761,18 +674,6 @@ body.menu-open {
 
 .banner p {
     font-size: 28px;
-}
-
-@keyframes pulse-left {
-    0% {
-        transform: scale(1);
-        opacity: 0.1;
-    }
-
-    100% {
-        transform: scale(1.2);
-        opacity: 0.2;
-    }
 }
 
 .banner-image {
@@ -1270,15 +1171,7 @@ footer {
     margin: 0 auto;
 }
 
-@media (max-width: 768px) {
 
-    .full-width-section .section-title,
-    .full-width-section .products-grid {
-        max-width: 100%;
-        padding: 0 16px;
-        /* Менші відступи */
-    }
-}
 
 /* Модальні вікна */
 .modal {
@@ -1554,60 +1447,180 @@ footer {
 }
 
 /* Адаптація */
-@media (max-width: 992px) {
-    .footer-container {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .search-bar {
-        width: 300px;
-    }
-}
-
 @media (max-width: 768px) {
-    .top-header {
-        display: none;
+    .main-header {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+        position: sticky;
+        top: 0;
     }
 
     .header-left,
     .header-right {
+        gap: 8px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: 24px;
+        margin-left: 0;
+    }
+
+    .logo-animation {
+        width: 40px;
+        height: 40px;
+    }
+
+    .burger-menu {
+        margin-left: 0;
+        font-size: 20px;
+    }
+
+    .header-icons {
+        gap: 8px;
+    }
+
+    .icon-btn {
+        width: 32px;
+        height: 32px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 85%;
+        top: 60px;
+    }
+
+    .subcategories-container {
+        width: 85%;
+        top: 60px;
+    }
+
+    .category-item {
+        padding: 10px 16px;
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        padding: 20px 16px;
+        height: auto;
+        min-height: 200px;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .banner h1 {
+        font-size: 28px;
+    }
+
+    .banner p {
+        font-size: 18px;
+    }
+
+    .banner-image,
+    .banner-left-image {
+        position: static;
+        width: 150px;
+        height: auto;
+        margin-top: 10px;
+    }
+
+    .add-ad-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .categories-grid {
+        grid-template-columns: repeat(3, 1fr);
         gap: 12px;
     }
 
-    .search-bar {
-        display: none;
+    .category-card {
+        padding: 12px 4px;
     }
 
-
-    .categories-grid {
-        grid-template-columns: repeat(3, 1fr);
+    .category-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 16px;
     }
 
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
 
-    .sidebar {
-        width: 280px;
-    }
-
-    .subcategories-container {
-        width: 280px;
+    .product-image {
+        height: 120px;
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .footer-container {
         grid-template-columns: 1fr;
-        gap: 30px;
+        gap: 24px;
+        padding: 0 16px;
     }
 
-    .categories-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .footer-column {
+        margin-bottom: 20px;
     }
 
-    .modal-content {
-        width: 95%;
+    .footer-logo img {
+        height: 24px;
+    }
+
+    .footer-logo span {
+        font-size: 20px;
     }
 }
 
+@media (max-width: 768px) {
+    #chat-widget {
+        bottom: 20px;
+        right: 20px;
+        height: 60px;
+        padding: 6px 12px;
+    }
+
+    .chat-text {
+        display: none;
+    }
+
+    #chat-popup {
+        bottom: 90px;
+        right: 20px;
+        width: calc(100% - 40px);
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .section-title a {
+        font-size: 13px;
+    }
+
+    /* Приховуємо деякі елементи на мобільних */
+    .location,
+    .language-selector {
+        display: none;
+    }
+}
