@@ -465,7 +465,22 @@ document.addEventListener('DOMContentLoaded', function () {
             chatPopup.style.display = 'none';
         }
     });
-
+    const chatSendBtn = document.getElementById('chat-send');
+    const chatTextarea = document.querySelector('#chat-popup textarea');
+    
+    chatSendBtn.addEventListener('click', () => {
+        const message = chatTextarea.value.trim();
+    
+        if (message !== '') {
+            console.log('Надіслано повідомлення:', message);
+    
+            // Очистити поле після надсилання
+            chatTextarea.value = '';
+        } else {
+            alert('Введіть повідомлення перед надсиланням.');
+        }
+    });
+    
   
 
 

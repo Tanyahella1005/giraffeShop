@@ -970,6 +970,11 @@ body.menu-open {
     transition: transform 0.3s;
 }
 
+#chat-send:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
 #chat-widget:hover {
     transform: scale(1.05);
 }
