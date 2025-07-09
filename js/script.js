@@ -487,8 +487,5 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Введіть повідомлення перед надсиланням.');
         }
     });
-    
-  
-
 
 });
