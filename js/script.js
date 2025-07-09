@@ -143,31 +143,38 @@ document.addEventListener('DOMContentLoaded', function () {
         const headerHeight = header.offsetHeight;
 
         if (isOpen) {
+            // Закриття меню
             sidebar.classList.remove('active');
             sidebarOverlay.classList.remove('active');
+
+            const scrollY = parseInt(document.body.style.top || '0') * -1;
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.left = '';
+            document.body.style.right = '';
             document.body.style.overflow = '';
-            document.body.style.paddingRight = scrollBarWidth + 'px'; // компенсація відсутності скролу
-            document.body.classList.remove('menu-open');
-
-            subcategoryContainers.forEach(container => {
-                container.classList.remove('active');
-            });
-
-            const categoryItems = document.querySelectorAll('.category-item');
-            categoryItems.forEach(item => {
-                item.classList.remove('active');
-            });
-
+            document.body.style.width = '';
+            window.scrollTo(0, scrollY);
         } else {
+            // Відкриття меню
+            const scrollY = window.pageYOffset;
             sidebar.style.top = headerHeight + 'px';
             sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
             sidebar.classList.add('active');
             sidebarOverlay.classList.add('active');
+
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollY}px`;
+            document.body.style.left = '0';
+            document.body.style.right = '0';
             document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = getScrollbarWidth() + 'px';
-            document.body.classList.add('menu-open');
+            document.body.style.width = '100%';
         }
+        
     });
+    
+    
+    
 
     closeSidebar.addEventListener('click', () => {
         sidebar.classList.remove('active');
