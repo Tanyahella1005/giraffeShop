@@ -35,6 +35,8 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     scroll-behavior: smooth;
+   
+    
     
 }
 
@@ -45,8 +47,8 @@ body {
     justify-content: space-between;
     align-items: center;
     background: #f8f8f8;
-    padding: 6px 24px;
-    font-size: 14px;
+    padding: 2px 24px;
+    font-size: 13px;
     border-bottom: 1px solid #ddd;
     position: sticky;
     top: 0;
@@ -178,17 +180,18 @@ body {
 }
 
 .main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 50px;
-    background: var(--light);
-    box-shadow: var(--shadow);
-    position: fixed;
+    height: 60px;
+    /* Фіксована висота */
+    padding: 5px 20px;
+    /* Зменшені відступи */
+    position: sticky;
     top: 0;
-    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    margin-bottom: 0;
 }
 
 .header-left,
@@ -203,21 +206,15 @@ body {
     cursor: pointer;
     color: var(--dark);
     z-index: 1001;
-    margin-left: 24px;
+    margin-left: 44px;
     /* ➕ зсув окремо для бургер-меню */
 }
 
 .logo {
-    font-weight: 800;
-    font-size: 50px;
-    color: var(--primary);
     display: flex;
     align-items: center;
-    gap: 15px;
-    z-index: 1001;
-    margin-left: 82px;
-    /* або більше */
-    letter-spacing: 1px;
+    gap: 10px;
+    height: 100%;
 }
 
 .logo-animation {
@@ -240,7 +237,7 @@ body {
 
 .search-bar {
     position: relative;
-    width: 700px;
+    width: 500px;
     /* Збільшена ширина */
     max-width: 100%;
     margin: 0 20px;
@@ -531,9 +528,9 @@ body.menu-open {
 
 .subcategories-container {
     position: fixed;
-    left: 250px;
-    top: 105px;
-    width: 250px;
+    left: 247px;
+    top: 130px;
+    width: 200px;
     height: calc(100vh - 60px);
     background: var(--light);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
@@ -592,6 +589,33 @@ body.menu-open {
 
 .back-button i {
     margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        height: 50px;
+        padding: 5px 10px;
+    }
+
+    .logo-animation {
+        width: 30px !important;
+        height: 30px !important;
+    }
+
+    .logo span {
+        font-size: 18px;
+    }
+
+    .search-bar {
+        display: none;
+        /* Приховати пошук на мобільних */
+    }
+
+    .location,
+    .language-selector {
+        display: none;
+        /* Приховати локацію та мову */
+    }
 }
 
 /* Головний контент */
@@ -1502,6 +1526,16 @@ footer {
 
     .category-item {
         padding: 10px 16px;
+    }
+}
+@media (max-width: 768px) {
+    .subcategories-container {
+        left: 100% !important;
+        /* Підкатегорії на весь екран */
+        top: 60px !important;
+        /* Нижче мобільного хедера */
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
     }
 }
 
