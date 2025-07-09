@@ -132,6 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const subcategoryContainers = document.querySelectorAll('.subcategories-container');
     const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 
+    // ➤ Додаємо функцію для отримання ширини скролбару
+    function getScrollbarWidth() {
+        return window.innerWidth - document.documentElement.clientWidth;
+    }
+
     burgerMenu.addEventListener('click', () => {
         const isOpen = sidebar.classList.contains('active');
         const header = document.getElementById('mainHeader');
@@ -141,14 +146,13 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebar.classList.remove('active');
             sidebarOverlay.classList.remove('active');
             document.body.style.overflow = '';
-            document.body.style.paddingRight = '';
+            document.body.style.paddingRight = scrollBarWidth + 'px'; // компенсація відсутності скролу
+            document.body.classList.remove('menu-open');
 
-            // Закрити підкатегорії
             subcategoryContainers.forEach(container => {
                 container.classList.remove('active');
             });
 
-            // Зняти активні стрілочки
             const categoryItems = document.querySelectorAll('.category-item');
             categoryItems.forEach(item => {
                 item.classList.remove('active');
@@ -160,7 +164,8 @@ document.addEventListener('DOMContentLoaded', function () {
             sidebar.classList.add('active');
             sidebarOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = scrollBarWidth + 'px';
+            document.body.style.paddingRight = getScrollbarWidth() + 'px';
+            document.body.classList.add('menu-open');
         }
     });
 
@@ -169,13 +174,12 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebarOverlay.classList.remove('active');
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
+        document.body.classList.remove('menu-open');
 
-        // Закрити підкатегорії
         subcategoryContainers.forEach(container => {
             container.classList.remove('active');
         });
 
-        // Зняти активні стрілочки
         const categoryItems = document.querySelectorAll('.category-item');
         categoryItems.forEach(item => {
             item.classList.remove('active');
@@ -187,24 +191,23 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebarOverlay.classList.remove('active');
         document.body.style.overflow = '';
         document.body.style.paddingRight = '';
+        document.body.classList.remove('menu-open');
 
-        // Закрити підкатегорії
         subcategoryContainers.forEach(container => {
             container.classList.remove('active');
         });
 
-        // Зняти активні стрілочки
         const categoryItems = document.querySelectorAll('.category-item');
         categoryItems.forEach(item => {
             item.classList.remove('active');
         });
-
     });
 
-    // Закрити підкатегорії
+    // Закрити підкатегорії (на старті)
     subcategoryContainers.forEach(container => {
         container.classList.remove('active');
     });
+
 
     // Модальні вікна
     const locationBtn = document.getElementById('locationBtn');
