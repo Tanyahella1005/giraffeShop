@@ -433,7 +433,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert(`Товар "${title}" додано до обраного`);
         });
     });
-    // Завантажуємо анімацію саме сюди
+    // Завантаження анімації Lottie
     const chatLottie = lottie.loadAnimation({
         container: document.getElementById('chat-lottie'),
         renderer: 'svg',
@@ -441,29 +441,34 @@ document.addEventListener('DOMContentLoaded', function () {
         autoplay: true,
         path: 'animations/Animation - 1751889554813.json'
     });
-    Images / vector - chat - icon - png_302635.jpg
-    // Елементи
-    const chatPopup = document.getElementById('chat-popup');
-    const lottieContainer = document.getElementById('chat-lottie');
 
-    // Клік по анімації відкриває/закриває чат
-    lottieContainer.addEventListener('click', () => {
-        if (chatPopup.style.display === 'none' || chatPopup.style.display === '') {
-            chatPopup.style.display = 'block';
+    const chatPopup = document.getElementById('chat-popup');
+    const chatLottieContainer = document.getElementById('chat-lottie');
+
+    // Відкриття/закриття чату по кліку на анімацію
+    chatLottieContainer.addEventListener('click', () => {
+        if (chatPopup.style.display === 'block') {
+            chatPopup.style.display = 'none';
         } else {
+            chatPopup.style.display = 'block';
+        }
+    });
+
+    // Кнопка закриття (якщо є)
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
+    if (chatCloseBtn) {
+        chatCloseBtn.addEventListener('click', () => {
+            chatPopup.style.display = 'none';
+        });
+    }
+
+    // Закриття кліком поза вікном
+    chatPopup.addEventListener('click', (e) => {
+        if (e.target === chatPopup) {
             chatPopup.style.display = 'none';
         }
     });
-    // Закриття модалки кнопкою "×"
-    chatClose.addEventListener('click', () => {
-        chatModal.style.display = 'none';
-    });
+  
 
-    // Закриття модалки кліком поза вікном
-    chatModal.addEventListener('click', (e) => {
-        if (e.target === chatModal) {
-            chatModal.style.display = 'none';
-        }
-    });
 
 });
