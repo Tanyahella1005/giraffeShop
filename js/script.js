@@ -444,8 +444,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const chatPopup = document.getElementById('chat-popup');
     const chatLottieContainer = document.getElementById('chat-lottie');
+    const chatCloseBtn = document.getElementById('chatCloseBtn');
 
-    // Відкриття/закриття чату по кліку на анімацію
     chatLottieContainer.addEventListener('click', () => {
         if (chatPopup.style.display === 'block') {
             chatPopup.style.display = 'none';
@@ -454,20 +454,18 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Кнопка закриття (якщо є)
-    const chatCloseBtn = document.getElementById('chatCloseBtn');
     if (chatCloseBtn) {
         chatCloseBtn.addEventListener('click', () => {
             chatPopup.style.display = 'none';
         });
     }
 
-    // Закриття кліком поза вікном
     chatPopup.addEventListener('click', (e) => {
         if (e.target === chatPopup) {
             chatPopup.style.display = 'none';
         }
     });
+
   
 
 

@@ -994,22 +994,43 @@ body.menu-open {
 /* Popup-вікно чату */
 #chat-popup {
     position: fixed;
-    bottom: 90px;
-    /* трохи над кнопкою */
+    bottom: 130px;
+    /* підняв вікно вище */
     right: 30px;
-    width: 280px;
+    width: 320px;
+    /* трішки ширше */
     background: white;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     display: none;
     z-index: 999;
+    font-family: sans-serif;
 }
 
 .chat-popup-inner {
-    padding: 16px;
+    position: relative;
+    padding: 16px 16px 60px;
+    /* додатковий паддінг знизу для кнопок */
     display: flex;
     flex-direction: column;
     gap: 12px;
+}
+
+/* Хрестик закриття у правому верхньому куті */
+.close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #333;
+}
+
+.chat-popup-inner strong {
+    font-size: 18px;
+    margin-bottom: 8px;
 }
 
 .chat-popup-inner textarea {
@@ -1020,6 +1041,38 @@ body.menu-open {
     border-radius: 8px;
     padding: 8px;
     font-size: 14px;
+    font-family: inherit;
+}
+
+/* Контейнер для кнопок під textarea */
+.chat-popup-actions {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+/* Кнопки додавання фото, файлу, редагування */
+.chat-popup-actions button {
+    background: #ffb700;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    padding: 6px 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.chat-popup-actions button:hover {
+    background: #e6a200;
 }
 
 #chat-send {
@@ -1030,6 +1083,7 @@ body.menu-open {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
+    margin-top: 8px;
 }
 
 
