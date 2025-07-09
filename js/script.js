@@ -298,6 +298,35 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    // твій код відкриття/закриття модалок
+
+    document.addEventListener('click', function (e) {
+        if (
+            e.target.classList.contains('fa-times') ||
+            e.target.closest('.notification-remove')
+        ) {
+            const notification = e.target.closest('.notification-item');
+            if (notification) {
+                notification.remove();
+
+                const badge = document.querySelector('#notificationsBtn .icon-badge');
+                if (badge) {
+                    setTimeout(() => {
+                        const count = document.querySelectorAll('.notification-item').length;
+                        if (count > 0) {
+                            badge.textContent = count;
+                            badge.style.display = 'inline-block';
+                        } else {
+                            badge.textContent = '';
+                            badge.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            }
+        }
+    });
+      
+
     // Вибір міста
     document.querySelectorAll('.city-item').forEach(item => {
         item.addEventListener('click', () => {
