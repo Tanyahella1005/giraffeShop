@@ -35,9 +35,19 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     scroll-behavior: smooth;
-   
-    
-    
+
+}
+
+html {
+    overflow-y: scroll;
+    /* або auto */
+}
+
+body.lock-scroll {
+    /* Якщо хочеш блокувати прокрутку, але не прибирати скрол */
+    position: fixed;
+    width: 100%;
+    overflow-y: scroll;
 }
 
 /* Хедер */

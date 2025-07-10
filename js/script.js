@@ -125,39 +125,55 @@ document.addEventListener('DOMContentLoaded', function () {
     createLeaves();
 
     // Бургер-меню
+    // Елементи
     const burgerMenu = document.getElementById('burgerMenu');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
     const closeSidebar = document.getElementById('closeSidebar');
     const subcategoryContainers = document.querySelectorAll('.subcategories-container');
-    const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    const categoryItems = document.querySelectorAll('.category-item');
+    const header = document.getElementById('mainHeader');
 
-    // ➤ Додаємо функцію для отримання ширини скролбару
+    // Функція для отримання ширини скролбару
     function getScrollbarWidth() {
         return window.innerWidth - document.documentElement.clientWidth;
     }
 
+    // Функція закриття меню (уніфікована)
+    function closeMenu() {
+        const scrollY = parseInt(document.body.style.top || '0') * -1;
+
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.overflow = '';
+        document.body.style.width = '';
+        document.body.style.paddingRight = '';
+
+        window.scrollTo(0, scrollY);
+
+        document.body.classList.remove('menu-open');
+
+        subcategoryContainers.forEach(container => container.classList.remove('active'));
+        categoryItems.forEach(item => item.classList.remove('active'));
+    }
+
+    // Обробник кліку на бургер меню
     burgerMenu.addEventListener('click', () => {
         const isOpen = sidebar.classList.contains('active');
-        const header = document.getElementById('mainHeader');
         const headerHeight = header.offsetHeight;
 
         if (isOpen) {
-            // Закриття меню
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-
-            const scrollY = parseInt(document.body.style.top || '0') * -1;
-            document.body.style.position = '';
-            document.body.style.top = '';
-            document.body.style.left = '';
-            document.body.style.right = '';
-            document.body.style.overflow = '';
-            document.body.style.width = '';
-            window.scrollTo(0, scrollY);
+            closeMenu();
         } else {
             // Відкриття меню
             const scrollY = window.pageYOffset;
+            const scrollBarWidth = getScrollbarWidth();
+
             sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
             sidebar.classList.add('active');
             sidebarOverlay.classList.add('active');
@@ -168,46 +184,16 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.style.right = '0';
             document.body.style.overflow = 'hidden';
             document.body.style.width = '100%';
+            document.body.style.paddingRight = scrollBarWidth + 'px'; // Компенсація ширини скролбару
         }
-        
-    });
-    
-    
-    
-
-    closeSidebar.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        sidebarOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-        document.body.classList.remove('menu-open');
-
-        subcategoryContainers.forEach(container => {
-            container.classList.remove('active');
-        });
-
-        const categoryItems = document.querySelectorAll('.category-item');
-        categoryItems.forEach(item => {
-            item.classList.remove('active');
-        });
     });
 
-    sidebarOverlay.addEventListener('click', () => {
-        sidebar.classList.remove('active');
-        sidebarOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-        document.body.style.paddingRight = '';
-        document.body.classList.remove('menu-open');
+    // Закриття меню по кнопці "Закрити"
+    closeSidebar.addEventListener('click', closeMenu);
 
-        subcategoryContainers.forEach(container => {
-            container.classList.remove('active');
-        });
+    // Закриття меню по кліку на оверлей
+    sidebarOverlay.addEventListener('click', closeMenu);
 
-        const categoryItems = document.querySelectorAll('.category-item');
-        categoryItems.forEach(item => {
-            item.classList.remove('active');
-        });
-    });
 
     // Закрити підкатегорії (на старті)
     subcategoryContainers.forEach(container => {
@@ -486,5 +472,16 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Введіть повідомлення перед надсиланням.');
         }
     });
+
+    function fixPageWidth() {
+        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.width = `calc(100vw - ${scrollBarWidth}px)`;
+        document.body.style.overflowX = 'hidden';
+    }
+
+    window.addEventListener('resize', fixPageWidth);
+    window.addEventListener('load', fixPageWidth);
+    fixPageWidth();
+           
 
 });
