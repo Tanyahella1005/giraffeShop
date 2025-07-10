@@ -240,6 +240,32 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.classList.remove('active');
             });
         });
+
+        const trigger = document.querySelector('.custom-select-trigger');
+        const options = document.querySelector('.custom-options');
+        const input = document.getElementById('categoryInput');
+
+        trigger.addEventListener('click', () => {
+            options.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.custom-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelector('.trigger-text').textContent = option.textContent;
+                input.value = option.textContent;
+                options.classList.remove('active');
+            });
+        });
+
+        // Закриття при кліку поза списком
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.custom-select-wrapper')) {
+                options.classList.remove('active');
+            }
+        });
+
+        
+
     });
 
     // Закриття модалок при кліку на затемнення

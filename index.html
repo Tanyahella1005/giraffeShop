@@ -796,21 +796,34 @@
                     <form>
                         <input type="text" placeholder="Назва товару" required>
         
-                        <select required
-                            style="width: 100%; padding: 12px 16px; margin-bottom: 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px;">
-                            <option value="">Оберіть категорію</option>
-                            <option>Електроніка</option>
-                            <option>Одяг</option>
-                            <option>Дім і сад</option>
-                            <option>Дитячі товари</option>
-                            <option>Автотовари</option>
-                        </select>
+                        <div class="custom-select-wrapper">
+                            <div class="custom-select-trigger">
+                                <span class="trigger-text">Оберіть категорію</span>
+                                <span class="arrow">&#9662;</span> <!-- ▼ стрілочка -->
+                            </div>
+                            <div class="custom-options">
+                                <div class="custom-option">Електроніка</div>
+                                <div class="custom-option">Одяг та взуття</div>
+                                <div class="custom-option">Дім і сад</div>
+                                <div class="custom-option">Дитячі товари</div>
+                                <div class="custom-option">Автотовари</div>
+                                <div class="custom-option">Кухня</div>
+                                <div class="custom-option">Спорт та відпочинок</div>
+                                <div class="custom-option">Книги та канцелярія</div>
+                                <div class="custom-option">Краса та догляд</div>
+                                <div class="custom-option">Товари для тварин</div>
+                                <div class="custom-option">Для дому</div>
+                            </div>
+                            <input type="hidden" name="category" id="categoryInput" required />
+                        </div>
+                          
+                          
         
                         <textarea placeholder="Опис товару" rows="4"
                             style="width: 100%; padding: 12px 16px; margin-bottom: 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; resize: vertical;"
                             required></textarea>
         
-                        <input type="number" placeholder="Ціна (₴)" required>
+                        <input type="number" placeholder="Ціна (грн)" required>
         
                         <div style="margin: 16px 0;">
                             <label style="display: block; margin-bottom: 8px; font-weight: 500;">Фото товару</label>
