@@ -1,5 +1,71 @@
-//Лого
+// Додайте цей код у файл script.js
+document.addEventListener('DOMContentLoaded', function () {
+    const mobileNav = document.querySelector('.mobile-bottom-nav');
+    if (mobileNav) {
+        console.log("Нижній хедер знайдено!");
+        mobileNav.style.borderTop = "2px solid #FF6B00"; // Додамо помітну рамку для тесту
+    } else {
+        console.error("Помилка: Нижній хедер не знайдено!");
+    }
 
+    document.addEventListener('DOMContentLoaded', function () {
+        // Обробник кліку для бургер-меню в нижньому хедері
+        const mobileBurger = document.querySelector('.mobile-bottom-nav .fa-bars').closest('.nav-item');
+
+        if (mobileBurger) {
+            mobileBurger.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                // Знаходимо бічне меню
+                const sidebar = document.querySelector('.sidebar');
+                const overlay = document.querySelector('.sidebar-overlay');
+
+                // Перемикаємо стан меню
+                if (sidebar && overlay) {
+                    sidebar.classList.toggle('active');
+                    overlay.classList.toggle('active');
+                    document.body.classList.toggle('no-scroll');
+                } else {
+                    console.error("Не знайдено бічне меню або оверлей");
+                }
+            });
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Функція для мобільної версії
+        function initMobileHeader() {
+            const header = document.querySelector('.main-header');
+            if (header && window.innerWidth <= 768) {
+                header.style.position = 'fixed';
+                header.style.top = '0';
+                header.style.marginTop = '0';
+                document.body.style.paddingTop = header.offsetHeight + 'px';
+            }
+        }
+
+        // Ініціалізація при завантаженні
+        initMobileHeader();
+
+        // Реакція на зміну розміру вікна
+        window.addEventListener('resize', function () {
+            if (window.innerWidth <= 768) {
+                initMobileHeader();
+            } else {
+                // Скидаємо стилі для десктопу
+                const header = document.querySelector('.main-header');
+                if (header) {
+                    header.style.position = '';
+                    header.style.top = '';
+                    header.style.marginTop = '';
+                    document.body.style.paddingTop = '';
+                }
+            }
+        });
+    });
+
+});
+//Лого
 const helpToggle = document.querySelector('.help-toggle');
 const helpDropdown = document.querySelector('.help-dropdown');
 
