@@ -158,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             // Відкриття меню
             const scrollY = window.pageYOffset;
-            sidebar.style.top = headerHeight + 'px';
             sidebar.style.height = `calc(100vh - ${headerHeight}px)`;
             sidebar.classList.add('active');
             sidebarOverlay.classList.add('active');
