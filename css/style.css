@@ -615,32 +615,6 @@ body.menu-open {
     margin-right: 8px;
 }
 
-@media (max-width: 768px) {
-    .main-header {
-        height: 50px;
-        padding: 5px 10px;
-    }
-
-    .logo-animation {
-        width: 30px !important;
-        height: 30px !important;
-    }
-
-    .logo span {
-        font-size: 18px;
-    }
-
-    .search-bar {
-        display: none;
-        /* Приховати пошук на мобільних */
-    }
-
-    .location,
-    .language-selector {
-        display: none;
-        /* Приховати локацію та мову */
-    }
-}
 
 /* Головний контент */
 .container {
@@ -1496,10 +1470,30 @@ footer {
 
 /* Адаптація */
 @media (max-width: 768px) {
+
+    /* Загальні стилі */
+    body {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 16px;
+    }
+
+    .section-title {
+        font-size: 20px;
+    }
+
+    .section-title a {
+        font-size: 13px;
+    }
+
+    /* Хедер */
     .main-header {
         padding: 12px 16px;
         flex-wrap: wrap;
         gap: 8px;
+        height: auto;
         position: sticky;
         top: 0;
     }
@@ -1511,23 +1505,27 @@ footer {
         justify-content: space-between;
     }
 
-    .logo {
-        font-size: 24px;
-        margin-left: 0;
-    }
-
     .logo-animation {
         width: 40px;
         height: 40px;
     }
 
-    .burger-menu {
-        margin-left: 0;
+    .logo span {
         font-size: 20px;
     }
 
-    .header-icons {
-        gap: 8px;
+    .burger-menu {
+        font-size: 22px;
+        margin-left: 0;
+    }
+
+    .search-bar {
+        display: none;
+    }
+
+    .location,
+    .language-selector {
+        display: none;
     }
 
     .icon-btn {
@@ -1535,35 +1533,25 @@ footer {
         height: 32px;
         font-size: 14px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Сайдбар */
     .sidebar {
         width: 85%;
         top: 60px;
     }
 
     .subcategories-container {
-        width: 85%;
-        top: 60px;
+        left: 100% !important;
+        top: 60px !important;
+        width: 100vw !important;
+        height: calc(100vh - 60px) !important;
     }
 
     .category-item {
         padding: 10px 16px;
     }
-}
-@media (max-width: 768px) {
-    .subcategories-container {
-        left: 100% !important;
-        /* Підкатегорії на весь екран */
-        top: 60px !important;
-        /* Нижче мобільного хедера */
-        width: 100vw !important;
-        height: calc(100vh - 60px) !important;
-    }
-}
 
-@media (max-width: 768px) {
+    /* Банер */
     .banner {
         padding: 20px 16px;
         height: auto;
@@ -1592,9 +1580,8 @@ footer {
         padding: 10px 20px;
         font-size: 14px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Категорії */
     .categories-grid {
         grid-template-columns: repeat(3, 1fr);
         gap: 12px;
@@ -1610,6 +1597,7 @@ footer {
         font-size: 16px;
     }
 
+    /* Товари */
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -1618,9 +1606,8 @@ footer {
     .product-image {
         height: 120px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Футер */
     .footer-container {
         grid-template-columns: 1fr;
         gap: 24px;
@@ -1638,9 +1625,8 @@ footer {
     .footer-logo span {
         font-size: 20px;
     }
-}
 
-@media (max-width: 768px) {
+    /* Чат */
     #chat-widget {
         bottom: 20px;
         right: 20px;
@@ -1657,28 +1643,28 @@ footer {
         right: 20px;
         width: calc(100% - 40px);
     }
-}
 
-@media (max-width: 768px) {
-    body {
-        font-size: 14px;
+    /* Додатково — допомога, мови */
+    .top-header {
+        font-size: 12px;
+        padding: 4px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
     }
 
-    .container {
-        padding: 0 16px;
+    .top-header-left,
+    .top-header-right {
+        flex-wrap: wrap;
     }
 
-    .section-title {
-        font-size: 20px;
+    .help-menu-wrapper {
+        padding-right: 0;
     }
 
-    .section-title a {
-        font-size: 13px;
-    }
-
-    /* Приховуємо деякі елементи на мобільних */
-    .location,
-    .language-selector {
-        display: none;
+    .help-dropdown {
+        right: 0;
+        left: auto;
+        min-width: 220px;
     }
 }
