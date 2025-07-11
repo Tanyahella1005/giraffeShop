@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Помилка: Нижній хедер не знайдено!");
     }
-
-    document.addEventListener('DOMContentLoaded', function () {
-        // Обробник кліку для бургер-меню в нижньому хедері
-        const mobileBurger = document.querySelector('.mobile-bottom-nav .fa-bars').closest('.nav-item');
+    {
+        // Відкриваємо бічне меню при кліку
+        document.querySelector('.burger-menu').click();
+    
+}
+    document.querySelector('.mobile-burger').addEventListener('click', function () {
+        document.querySelector('.burger-menu').click(); // Імітуємо клік на оригінальний бургер
 
         if (mobileBurger) {
             mobileBurger.addEventListener('click', function (e) {
@@ -63,6 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
+
+    
 
 });
 //Лого
