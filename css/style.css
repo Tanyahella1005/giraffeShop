@@ -1667,33 +1667,89 @@ footer {
 
                     
     /* Банер */
-        .banner {
-            position: relative;
-            margin-top: 0;
+    .banner {
+        position: relative;
+        margin-top: 0;
+        height: 180px;
+            /* або auto для динамічної */
             padding: 20px 15px;
-            background: linear-gradient(135deg, #FFA500, #FFD700);
-            color: #42210b;
-            z-index: 50;
-        }
-
+        background: linear-gradient(135deg, #FFA500, #FFD700);
+        color: #42210b;
+        z-index: 60;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    
     .banner h1 {
-        font-size: 22px;
-        margin-bottom: 8px;
+        font-size: 20px;
+        line-height: 30px;
+        margin-bottom: 100px;
+        /* ⬅ менше відступу під заголовком */
+        animation: fadeInDown 0.5s ease forwards;
+            animation-delay: 0s;
+            /* Перший */
     }
 
     .banner p {
-        font-size: 15px;
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 45px;
+        /* ⬅ трохи відступу перед кнопкою */
+        animation: fadeInDown 0.5s ease forwards;
+            animation-delay: 0.5s;
+            /* Через 0.3 секунди після h1 */
     }
-
-    .banner-image,
-    .banner-left-image {
-        display: none;
-    }
-
+    
     .add-ad-btn {
-        padding: 10px 20px;
+        margin-top: auto;
+        /* ⬅ опускає кнопку вниз */
+        padding: 12px 24px;
         font-size: 14px;
+        background: var(--primary, #3a1a05);
+        color: rgb(48, 28, 6);
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        align-self: stretch;
+        /* ⬅ кнопка на всю ширину */
     }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+    
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+    
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+                .banner-left-image {
+                    position: relative;
+                    width: 180px;
+                    height: 150px;
+                    margin: 0 0 10px 0;
+                    /* відступ знизу */
+                    z-index: 30;
+                    /* зверху */
+                    border: 1px solid transparent;
+                    /* для тесту можна зробити червоним */       }
+       
 
         /* Контент */
         .container {
