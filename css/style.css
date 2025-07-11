@@ -1702,33 +1702,85 @@ footer {
             /* Враховуємо нижній хедер */
         }
 
+                /* Основний контейнер */
+                .main-container {
+                    padding-bottom: 80px;
+                    /* Враховуємо висоту нижнього хедера */
+                    height: calc(100vh - 140px);
+                    /* 140px = верхній хедер (60px) + нижній (60px) + відступи */
+                    overflow-y: auto;
+                    /* Додаємо скрол для всього контенту */
+                }
+
                 /* Бічне меню */
+
+
                 .sidebar {
                     position: fixed;
                     top: 60px;
                     /* Враховуємо висоту хедера */
                     left: -300px;
-                    width: 80%;
+                    width: 55%;
                     height: calc(100vh - 60px);
                     background: white;
                     z-index: 1001;
                     transition: left 0.3s ease;
+                    
                 }
 
+                  .categories-grid {
+                      display: grid;
+                      grid-template-columns: repeat(3, 1fr);
+                     gap: 10px;
+                    padding-bottom: 15px;
+                        /* Для кращого скролу */
+                 }
+                
                 .subcategories-container {
-                    width: 85%;
-                    top: 60px;
-                }
-        
+                    display: grid;
+                    width: 100%;
+                        grid-template-columns: repeat(3, 1fr);
+                        /* 3 колонки, як у категорій */
+                        gap: 10px;
+                        /* Такий самий проміжок */
+                        padding: 0 12px;
+                        /* Однаковий відступ */          
+                    }
+                    .subcategories-container ul {
+                        padding-left: 0px; /* Відступ для списку */
+                        margin-left: 0; /* Скидання стандартного margin */
+                    }
+                    
+                    .subcategories-container li {
+                        padding-left: 0; /* Додатково для пунктів списку */
+                    }
+                
+                    .subcategories-list {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 10px;
+                        padding: 0;
+                        list-style: none;
+                    }
+                    
+                    .subcategory-item {
+                        padding: 10px;
+                        text-align: center;
+                        background: #f5f5f5;
+                        border-radius: 8px;
+                    }
+
                 .sidebar.active {
-                    left: 0;
+                    left: 20;
+                    left: 0 !important;
+                        /* Закріплюємо відкрите меню зліва */
                 }
         
                 .sidebar-overlay {
                     position: fixed;
                     top: 60px;
                     left: 0;
-                    right: 0;
+                    right:40;
                     bottom: 0;
                     background: rgba(0, 0, 0, 0.5);
                     z-index: 1000;
@@ -1737,6 +1789,7 @@ footer {
                     transition: all 0.3s;
                 }
         
+                                
                 .sidebar-overlay.active {
                     opacity: 1;
                     visibility: visible;
@@ -1759,7 +1812,13 @@ footer {
     }
 
     .category-card {
-        padding: 12px 5px;
+        padding: 10px 5px;
+            min-width: 80px;
+            /* Мінімальна ширина */
+            max-width: 120px;
+            /* Максимальна ширина */
+            width: 100%;
+            /* Займає всю доступну ширину */
     }
 
     .category-icon {
@@ -1843,6 +1902,10 @@ footer {
             align-items: center;
             justify-content: center;
         }
+                /* Виправлення для бургер-меню */
+                .mobile-burger {
+                    cursor: pointer;
+                }
 
     .chat-text {
         display: none;
@@ -1861,35 +1924,106 @@ footer {
 
     /* Футер */
 
+    @media (max-width: 768px) {
         footer {
             padding: 20px 15px;
+            margin-bottom: 60px;
+            /* Враховуємо висоту нижнього меню */
             background: var(--dark);
             color: white;
+            position: relative;
         }
     
-        .footer-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+        .footer-container {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
+            max-width: 100%;
+            padding: 0;
         }
+    
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+    
+        .footer-logo img {
+            height: 24px;
+        }
+    
+        .footer-logo span {
+            font-size: 18px;
+        }
+    
+        .footer-about {
+            font-size: 12px;
+            line-height: 1.5;
+            opacity: 0.8;
+            margin-bottom: 15px;
+        }
+    
+        .footer-column {
+            margin-bottom: 20px;
+        }
+    
+        .footer-column h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+        
+        }
+    
+        .footer-column ul {
+            list-style: none;
+                padding: 0;
+        }
+    
+        .footer-column li {
+            margin-bottom: 8px;
+        }
+    
+        .footer-column a {
+            color: rgba(255, 255, 255, 0.8);
+                text-decoration: none;
+        }
+    
+        .footer-social {
+            display: flex;
+            gap: 12px;
+           
+        }
+    
+        .social-icon {
+            width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+        }
+    
+        .footer-bottom {
+            font-size: 11px;
+            padding-top: 15px;
+            margin-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    
+        /* Виправлення для відступів */
+        footer * {
+            margin: 0;
+            padding: 0;
+        }   }
 
-    .footer-container {
-        grid-template-columns: 1fr;
-        gap: 20px;
-        padding: 0 15px;
-    }
-
-    .footer-logo img {
-        height: 28px;
-    }
-
-    .footer-logo span {
-        font-size: 20px;
-    }
-
-    .footer-about {
-        font-size: 13px;
-    }
+                /* ===== ФУТЕР ДЛЯ ДЕСКТОПІВ ===== */
+                @media (min-width: 769px) {
+                    footer {
+                        margin-bottom: 0;
+                        /* На десктопах немає нижнього меню */
+                    }
+                }
 
     /* Модальні вікна */
     .modal-content {

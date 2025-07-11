@@ -7,9 +7,28 @@ document.addEventListener('DOMContentLoaded', function () {
     } else {
         console.error("Помилка: Нижній хедер не знайдено!");
     }
+
+    // Обробники для інших пунктів меню (сповіщення, обране, кабінет)
+    const navItems = document.querySelectorAll('.mobile-bottom-nav .nav-item:not(:first-child)');
+    navItems.forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Тут можна додати логіку для відкриття відповідних модальних вікон
+            alert('Цей функціонал ще в розробці: ' + this.querySelector('span').textContent);
+        });
+    });
     {
-        // Відкриваємо бічне меню при кліку
-        document.querySelector('.burger-menu').click();
+        // Модальні вікна
+        const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+        mobileNavItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                if (this.classList.contains('mobile-burger')) return;
+
+                e.preventDefault();
+                const target = this.getAttribute('href').substring(1);
+                document.getElementById(target + '-modal').classList.add('active');
+            });
+        });
     
 }
     document.querySelector('.mobile-burger').addEventListener('click', function () {
@@ -34,6 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     });
+
+    
 
     document.addEventListener('DOMContentLoaded', function () {
         // Функція для мобільної версії
