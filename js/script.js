@@ -94,9 +94,21 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+    if (window.innerWidth <= 768) {
+        document.getElementById('left-banner-animation').style.transform = 'translateX(20px) translateY(10px) scale(0.8)';
+        document.getElementById('banner-animation').style.transform = 'translateX(-20px) translateY(5px) scale(0.7)';
+    } else {
+        document.getElementById('left-banner-animation').style.transform = '';
+        document.getElementById('banner-animation').style.transform = '';
+    }
+      
+
     
 
 });
+
+
+//Десктоп
 //Лого
 const helpToggle = document.querySelector('.help-toggle');
 const helpDropdown = document.querySelector('.help-dropdown');
