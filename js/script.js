@@ -51,6 +51,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.error("Не знайдено бічне меню або оверлей");
                 }
             });
+            if (sidebar.classList.contains('active')) {
+                document.querySelector('.main-container').style.paddingBottom = '120px'; // щоб врахувати меню
+            } else {
+                document.querySelector('.main-container').style.paddingBottom = '60px';
+            }
+              
         }
     });
 
