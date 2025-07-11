@@ -1702,15 +1702,17 @@ footer {
             /* Враховуємо нижній хедер */
         }
 
-                /* Основний контейнер */
-                .main-container {
-                    padding-bottom: 80px;
-                    /* Враховуємо висоту нижнього хедера */
-                    height: calc(100vh - 140px);
-                    /* 140px = верхній хедер (60px) + нижній (60px) + відступи */
-                    overflow-y: auto;
-                    /* Додаємо скрол для всього контенту */
-                }
+  /* Основний контейнер */
+   .main-container {
+     padding-bottom: 60px;
+    /* Враховуємо висоту нижнього хедера */
+    min-height: calc(100vh - 120px);
+        /* 120px = верхній+нижній хедер */
+     /* 140px = верхній хедер (60px) + нижній (60px) + відступи */
+    overflow-y: auto;
+    padding-bottom: 60px;
+    position: relative;
+    }
 
                 /* Бічне меню */
 
@@ -1718,10 +1720,11 @@ footer {
                 .sidebar {
                     position: fixed;
                     top: 60px;
+                    bottom: 60px;
                     /* Враховуємо висоту хедера */
                     left: -300px;
                     width: 55%;
-                    height: calc(100vh - 60px);
+                    height: calc(100vh - 180px);
                     background: white;
                     z-index: 1001;
                     transition: left 0.3s ease;
@@ -1736,15 +1739,31 @@ footer {
                         /* Для кращого скролу */
                  }
                 
+                 .categories-container {
+                    position: absolute;
+                    bottom: 60px; /* Притискаємо до низу перед хедером */
+                    left: 0;
+                    right: 0;
+                    max-height: 70vh; /* Максимальна висота */
+                    overflow-y: auto; /* Додаємо скрол при потребі */
+                    padding: 15px;
+                        box-sizing: border-box;
+                  }
+
                 .subcategories-container {
                     display: grid;
-                    width: 100%;
+                    width: 70%;
+                    height: calc(100vh - 125px);
+                        /* Фіксована висота */
+                    max-height: 1000px;
+                    top: 60px;
                         grid-template-columns: repeat(3, 1fr);
                         /* 3 колонки, як у категорій */
                         gap: 10px;
                         /* Такий самий проміжок */
                         padding: 0 12px;
-                        /* Однаковий відступ */          
+                        /* Однаковий відступ */ 
+                        margin-left: -47px;
                     }
                     .subcategories-container ul {
                         padding-left: 0px; /* Відступ для списку */
@@ -1757,10 +1776,11 @@ footer {
                 
                     .subcategories-list {
                         display: grid;
-                        grid-template-columns: repeat(3, 1fr);
-                        gap: 10px;
-                        padding: 0;
-                        list-style: none;
+                            grid-template-columns: repeat(3, 1fr);
+                            gap: 10px;
+                            padding: 0;
+                            margin: 0;
+                            list-style: none;
                     }
                     
                     .subcategory-item {
@@ -1778,28 +1798,63 @@ footer {
         
                 .sidebar-overlay {
                     position: fixed;
-                    top: 60px;
+                    top: 60px;             /* або 110px, якщо два хедери */
                     left: 0;
-                    right:40;
-                    bottom: 0;
-                    background: rgba(0, 0, 0, 0.5);
+                    right: 0;              /* повна ширина */
+                    bottom: 60px;          /* ⬅️ тепер є відступ від нижнього краю */
+                    background: rgba(0, 0, 0, 0.5); /* затемнення */
                     z-index: 1000;
-                    opacity: 0;
+                    opacity: 0;            /* прихований за замовчуванням */
                     visibility: hidden;
-                    transition: all 0.3s;
+                    transition: all 0.3s ease;
                 }
-        
-                                
+
                 .sidebar-overlay.active {
                     opacity: 1;
                     visibility: visible;
                 }
+        
+                .content-wrapper {
+                    padding-bottom: 100px; /* Відступ для нижнього хедера */
+                    min-height: calc(100vh - 140px); /* Гнучка висота */
+                    display: flex;
+                        flex-direction: column;
+                        gap: 0px;
+                        /* Відступ між секціями */
+                        padding: 0px;
+                  }
+
         
                 .no-scroll {
                     overflow: hidden;
                 }
 
     /* Секції */
+    categories-section {
+        height: calc(50vh - 30px);
+        /* 50% висоти екрана мінус відступи */
+        overflow-y: auto;
+        margin-bottom: 0;
+        padding: 0 12px;     }
+
+          .categories-grid {
+            display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 10px;
+                padding-bottom: 15px;
+       }
+      
+       .categories-container {
+          position: absolute;
+          bottom: 60px; /* Притискаємо до низу перед хедером */
+          left: 0;
+          right: 0;
+          max-height: 70vh; /* Максимальна висота */
+          overflow-y: auto; /* Додаємо скрол при потребі */
+          padding: 15px;
+              box-sizing: border-box;
+        }
+
     .section-title {
         font-size: 18px;
         padding: 0 12px;
@@ -1811,15 +1866,16 @@ footer {
         padding: 0 12px;
     }
 
-    .category-card {
-        padding: 10px 5px;
+        /* Стилі для карток */
+        .category-card,
+        .subcategory-card {
+            padding: 10px 5px;
             min-width: 80px;
-            /* Мінімальна ширина */
             max-width: 120px;
-            /* Максимальна ширина */
-            width: 100%;
-            /* Займає всю доступну ширину */
-    }
+            text-align: center;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
 
     .category-icon {
         width: 36px;
