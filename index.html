@@ -151,6 +151,7 @@
                 <div class="logo">
                     <div id="logo-animation" class="logo-animation"></div>
                     <span>Giraffy</span>
+                    <div class="noselect"></div>
                 </div>
             </div>
 
@@ -721,34 +722,6 @@
         </footer>
 
         <!-- Модальне вікно для геолокації -->
-        <div class="modal" id="locationModal">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h3>Оберіть місто</h3>
-                    <button class="close-modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="search-bar" style="width: 100%; margin-bottom: 16px;">
-                        <input type="text" placeholder="Пошук міста..." id="citySearch">
-                        <button><i class="fas fa-search"></i></button>
-                    </div>
-                    <div class="city-list">
-                        <div class="city-item">Київ</div>
-                        <div class="city-item">Львів</div>
-                        <div class="city-item">Одеса</div>
-                        <div class="city-item">Харків</div>
-                        <div class="city-item">Дніпро</div>
-                        <div class="city-item">Запоріжжя</div>
-                        <div class="city-item">Вінниця</div>
-                        <div class="city-item">Житомир</div>
-                        <div class="city-item">Івано-Франківськ</div>
-                        <div class="city-item">Тернопіль</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Модальне вікно для авторизації -->
         <div class="modal" id="authModal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -760,34 +733,99 @@
                         <div class="auth-tab active" id="loginTab">Вхід</div>
                         <div class="auth-tab" id="registerTab">Реєстрація</div>
                     </div>
-
+        
+                    <!-- Форма входу -->
                     <form class="auth-form" id="loginForm">
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Пароль" required>
-                        <button type="submit">Увійти</button>
-                    </form>
-
-                    <form class="auth-form" id="registerForm" style="display: none;">
-                        <input type="text" placeholder="Ім'я" required>
-                        <input type="email" placeholder="Email" required>
-                        <input type="password" placeholder="Пароль" required>
-                        <input type="password" placeholder="Повторіть пароль" required>
-                        <button type="submit">Зареєструватися</button>
-                    </form>
-
-                    <div class="auth-divider">або</div>
-
-                    <div class="social-auth">
-                        <p>Увійдіть через соціальні мережі</p>
-                        <div class="social-buttons">
-                            <div class="social-btn facebook">
-                                <i class="fab fa-facebook-f"></i>
-                            </div>
-                            <div class="social-btn google">
-                                <i class="fab fa-google"></i>
-                            </div>
+                        <div class="form-group">
+                            <label for="loginEmail">Електронна пошта</label>
+                            <input type="email" id="loginEmail" placeholder="name@gmail.com" required>
                         </div>
-                    </div>
+        
+                        <div class="form-group">
+                            <label for="loginPassword">Пароль</label>
+                            <input type="password" id="loginPassword" placeholder="Введіть пароль" required>
+                        </div>
+        
+                        <div class="login-options">
+                            <label class="remember-me">
+                                <input type="checkbox"> Запам'ятати мене
+                            </label>
+                            <a href="#" class="forgot-password">Забули пароль?</a>
+                        </div>
+        
+                        <button type="submit" class="auth-btn">Увійти</button>
+                        
+                        <div class="auth-divider">або продовжити через</div>
+        
+                        <div class="social-auth">
+                            <button class="social-btn google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                        </div>
+
+                        <div class="register-prompt">
+                            Вперше тут? <a href="#" class="switch-to-register">Зареєструватися</a>
+                        </div>
+
+                    </form>
+        
+                    <!-- Форма реєстрації -->
+                    <form class="auth-form" id="registerForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="regEmail">Електронна пошта</label>
+                            <input type="email" id="regEmail" placeholder="name@gmail.com" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="regPhone">Номер телефону</label>
+                            <input type="tel" id="regPhone" placeholder="+380 (...) ---" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="regPassword">Пароль</label>
+                            <input type="password" id="regPassword" placeholder="Введіть пароль" required>
+                        </div>
+        
+                        <div class="form-group">
+                            <label for="regConfirmPassword">Підтвердження паролю</label>
+                            <input type="password" id="regConfirmPassword" placeholder="Повторіть пароль" required>
+                        </div>
+        
+                        <div class="agreements">
+                            <label class="agreement-checkbox">
+                                <input type="checkbox" required>
+                                <span>Я погоджуюся з <a href="#">Політикою конфіденційності</a> та <a href="#">Умовами надання
+                                        послуг</a></span>
+                            </label>
+        
+                            <label class="agreement-checkbox">
+                                <input type="checkbox">
+                                <span>Я погоджуюсь отримувати новини та оновлення сервісу</span>
+                            </label>
+                        </div>
+
+                        <button type="submit" class="auth-btn">Зареєструватися</button>
+
+                        <div class="auth-divider">або продовжити через</div>
+
+                        <div class="social-auth">
+                            <button class="social-btn google">
+                                <i class="fab fa-google"></i>
+                            </button>
+                            <button class="social-btn facebook">
+                                <i class="fab fa-facebook-f"></i>
+                            </button>
+                        </div>
+        
+                        <div class="login-prompt">
+                            Вже є аккаунт? <a href="#" class="switch-to-login">Увійти</a>
+                        </div>
+        
+                        
+                    </form>
                 </div>
             </div>
         </div>
