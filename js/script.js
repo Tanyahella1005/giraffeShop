@@ -145,6 +145,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
     });
 
+    
+
     // Додаємо новий контейнер для лівої анімації
     const banner = document.querySelector('.banner');
     const leftAnimationContainer = document.createElement('div');
@@ -374,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-
+        
 
     });
 
@@ -619,5 +621,22 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('load', fixPageWidth);
     fixPageWidth();
 
+    document.querySelectorAll('.toggle-password').forEach(icon => {
+        icon.addEventListener('click', () => {
+            const targetId = icon.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        });
+    });
 
 });

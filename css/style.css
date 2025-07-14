@@ -1394,6 +1394,34 @@ footer {
     text-decoration: underline;
 }
 
+.password-field {
+    position: relative;
+}
+
+.password-field input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-field .toggle-password {
+    position: absolute;
+    top: 38%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    font-size: 16px;
+    color: #999;
+}
+
+.password-field .toggle-password:hover {
+    color: #333;
+}
+.toggle-password {
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+
 .agreements {
     margin: 10px 0;
 }
