@@ -142,10 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         loop: true,
         autoplay: true,
         path: 'animations/Animation - 1751649172192.json'
-
     });
-
-    
 
     // Додаємо новий контейнер для лівої анімації
     const banner = document.querySelector('.banner');
@@ -166,7 +163,6 @@ document.addEventListener('DOMContentLoaded', function () {
         autoplay: true,
         path: 'animations/Animation - 1751911064870.json'
     });
-
 
     const langBtn = document.getElementById('current-lang');
     const langDropdown = document.getElementById('lang-dropdown');
@@ -194,7 +190,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    // Кастомний селектор категорій (оптимізована версія)
+    const categoryTrigger = document.querySelector('.custom-select-trigger');
+    const categoryOptions = document.querySelector('.custom-options');
+    const categoryInput = document.getElementById('categoryInput');
+    const triggerText = document.querySelector('.trigger-text');
 
+    if (categoryTrigger && categoryOptions && categoryInput && triggerText) {
+        // Показати/сховати випадаючий список
+        categoryTrigger.addEventListener('click', function (e) {
+            e.stopPropagation();
+            categoryOptions.classList.toggle('active');
+        });
+
+        // Вибір категорії
+        document.querySelectorAll('.custom-option').forEach(option => {
+            option.addEventListener('click', function (e) {
+                const selected = this.textContent.trim();
+                triggerText.textContent = selected;
+                categoryInput.value = selected;
+                categoryOptions.classList.remove('active');
+            });
+        });
+
+        // Закриття при кліку поза меню
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.custom-select-wrapper')) {
+                categoryOptions.classList.remove('active');
+            }
+        });
+    }
 
     // Створення анімації листочків
     function createLeaves() {
@@ -306,12 +331,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Закриття меню по кліку на оверлей
     sidebarOverlay.addEventListener('click', closeMenu);
 
-
     // Закрити підкатегорії (на старті)
     subcategoryContainers.forEach(container => {
         container.classList.remove('active');
     });
-
 
     // Модальні вікна
     const locationBtn = document.getElementById('locationBtn');
@@ -352,32 +375,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 modal.classList.remove('active');
             });
         });
-
-        const trigger = document.querySelector('.custom-select-trigger');
-        const options = document.querySelector('.custom-options');
-        const input = document.getElementById('categoryInput');
-
-        trigger.addEventListener('click', () => {
-            options.classList.toggle('active');
-        });
-
-        document.querySelectorAll('.custom-option').forEach(option => {
-            option.addEventListener('click', () => {
-                document.querySelector('.trigger-text').textContent = option.textContent;
-                input.value = option.textContent;
-                options.classList.remove('active');
-            });
-        });
-
-        // Закриття при кліку поза списком
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.custom-select-wrapper')) {
-                options.classList.remove('active');
-            }
-        });
-
-        
-
     });
 
     // Закриття модалок при кліку на затемнення
@@ -427,35 +424,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 300);
         });
     });
-
-    // твій код відкриття/закриття модалок
-
-    document.addEventListener('click', function (e) {
-        if (
-            e.target.classList.contains('fa-times') ||
-            e.target.closest('.notification-remove')
-        ) {
-            const notification = e.target.closest('.notification-item');
-            if (notification) {
-                notification.remove();
-
-                const badge = document.querySelector('#notificationsBtn .icon-badge');
-                if (badge) {
-                    setTimeout(() => {
-                        const count = document.querySelectorAll('.notification-item').length;
-                        if (count > 0) {
-                            badge.textContent = count;
-                            badge.style.display = 'inline-block';
-                        } else {
-                            badge.textContent = '';
-                            badge.style.display = 'none';
-                        }
-                    }, 300);
-                }
-            }
-        }
-    });
-
 
     // Вибір міста
     document.querySelectorAll('.city-item').forEach(item => {
@@ -564,7 +532,8 @@ document.addEventListener('DOMContentLoaded', function () {
             alert(`Товар "${title}" додано до обраного`);
         });
     });
-    // Завантаження анімації Lottie
+
+    // Завантаження анімації Lottie для чату
     const chatLottie = lottie.loadAnimation({
         container: document.getElementById('chat-lottie'),
         renderer: 'svg',
@@ -596,6 +565,7 @@ document.addEventListener('DOMContentLoaded', function () {
             chatPopup.style.display = 'none';
         }
     });
+
     const chatSendBtn = document.getElementById('chat-send');
     const chatTextarea = document.querySelector('#chat-popup textarea');
 
@@ -604,8 +574,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         if (message !== '') {
             console.log('Надіслано повідомлення:', message);
-
-            // Очистити поле після надсилання
             chatTextarea.value = '';
         } else {
             alert('Введіть повідомлення перед надсиланням.');
@@ -639,5 +607,4 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-
 });
