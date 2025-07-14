@@ -479,7 +479,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Пошук міст
-    const citySearch = document.getElementById('citySearch');
+    const citySearch = document.getElementById('modalCitySearch');
+
     if (citySearch) {
         citySearch.addEventListener('input', function () {
             const searchTerm = this.value.toLowerCase();
